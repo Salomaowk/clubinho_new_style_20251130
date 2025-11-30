@@ -210,18 +210,34 @@ function createResultCard(item) {
     return card;
 }
 
-// Highlight search query in text
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Escape regex special characters
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Highlight search query in text (safely)
 function highlightText(text, query) {
-    if (!query) return text;
+    if (!query) return escapeHtml(text);
     
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<strong style="background-color: rgba(99, 102, 241, 0.2); font-weight: 600;">$1</strong>');
+    const escapedText = escapeHtml(text);
+    const escapedQuery = escapeRegex(query);
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return escapedText.replace(regex, '<strong style="background-color: rgba(99, 102, 241, 0.2); font-weight: 600;">$1</strong>');
 }
 
 // Handle result card click
 function handleResultClick(item) {
     console.log('Result clicked:', item);
-    alert(`Você clicou em: ${item.title}\n\nCategoria: ${item.category}\n\nDescrição: ${item.description}`);
+    // In a real application, this would navigate to a detail page
+    // For now, we'll add visual feedback with a subtle console log
+    // Example: window.location.href = `/details/${item.id}`;
 }
 
 // Initialize when DOM is loaded
