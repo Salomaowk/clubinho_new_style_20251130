@@ -1,0 +1,456 @@
+/* Theme System - Single Unified Theme */
+
+/* ============ SINGLE THEME (DARK GRAY) ============ */
+:root {
+    /* Backgrounds */
+    --background: #525252;
+    --bg-primary: #525252;
+    --bg-secondary: #404040;
+    --bg-tertiary: #2E2E2E;
+    --bg-card: #626262;
+
+    /* Text Colors - Bright white for visibility */
+    --text-primary: #FFFFFF;
+    --text-secondary: #E8E8E8;
+    --text-muted: #D0D0D0;
+    --text-white: #FFFFFF;
+
+    /* Borders - Subtle lighter gray for dark background */
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-medium: rgba(255, 255, 255, 0.15);
+    --border-color: #707070;
+
+    /* Primary Gradients - Orange/amber */
+    --gradient-primary: linear-gradient(135deg, #FF9500 0%, #FF7500 100%);
+    --gradient-primary-hover: linear-gradient(135deg, #FFB040 0%, #FF8A00 100%);
+    --gradient-header: linear-gradient(135deg, #FF9500 0%, #FF7500 100%);
+    --gradient-accent: linear-gradient(135deg, #FFB040 0%, #FF9500 100%);
+
+    /* Accent Colors - Vibrant */
+    --accent-pink-light: #FFD4A3;
+    --accent-pink: #FFB366;
+    --accent-pink-medium: #FF9D4D;
+    --accent-pink-dark: #FF8533;
+
+    /* Earth tones - Adjusted for new theme */
+    --pastel-lavender: #E8D5FF;
+    --pastel-peach: #FFD9B3;
+    --pastel-mint: #D4F0E8;
+    --pastel-sky: #D4E8F5;
+    --pastel-rose: #FFE8D9;
+
+    /* Primary Color */
+    --primary-color: #FF9500;
+    --primary-light: #FFB040;
+    --primary-dark: #FF7500;
+
+    /* Status Colors - Vibrant */
+    --success-light: #E8F5E9;
+    --success: #4CAF50;
+    --success-dark: #388E3C;
+
+    --warning-light: #FFF3E0;
+    --warning: #FF9800;
+    --warning-dark: #F57C00;
+
+    --danger-light: #FFEBEE;
+    --danger: #F44336;
+    --danger-dark: #D32F2F;
+
+    --info-light: #E3F2FD;
+    --info: #2196F3;
+    --info-dark: #1976D2;
+
+    /* Shadows - Elegant and refined for dark background */
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+    /* Border Radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+}
+
+/* ============ SMOOTH TRANSITIONS & ANIMATIONS ============ */
+body,
+.card,
+.header,
+.bottom-nav,
+.floating-tools-menu,
+.stat-card,
+.action-card,
+.activity-card,
+.item-card,
+.order-card,
+.modal-content,
+.btn,
+input,
+select,
+textarea,
+.filter-chip,
+.badge {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+}
+
+/* ============ THEME-AWARE COMPONENTS ============ */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Cards */
+.stat-card,
+.action-card,
+.activity-card,
+.item-card,
+.order-card,
+.search-card,
+.page-header,
+.action-section,
+.tab-navigation,
+.calculator-container {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+/* Card hover animations */
+.item-card:hover,
+.order-card:hover,
+.stat-card:hover,
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.header {
+    background: var(--gradient-header);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+/* Text colors */
+.page-title,
+.section-title,
+.item-name,
+.customer-name {
+    color: var(--text-primary);
+}
+
+.stat-label,
+.activity-subtitle,
+.item-details,
+.order-details,
+.result-label,
+.financial-label {
+    color: var(--text-secondary);
+}
+
+/* Borders */
+.activity-item,
+.result-item {
+    border-bottom-color: var(--border-light);
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control,
+.search-input,
+.combobox-input {
+    background-color: var(--bg-card);
+    color: #FFFFFF;
+    border-color: var(--border-medium);
+}
+
+input.form-control::placeholder,
+textarea.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(255, 149, 0, 0.25);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* Gradients */
+.btn-primary,
+.btn-add,
+.btn-calculate {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-primary:hover,
+.btn-add:hover,
+.btn-calculate:hover:not(:disabled) {
+    background: var(--gradient-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Status badges */
+.status-badge {
+    border: 1px solid var(--border-medium);
+    color: white;
+}
+
+/* Modal */
+.modal-content {
+    background-color: var(--bg-card);
+    border-color: var(--border-medium);
+    color: var(--text-primary);
+}
+
+.modal-header {
+    background: var(--gradient-header);
+    color: white;
+    border-color: var(--border-medium);
+}
+
+.modal-title {
+    color: white;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+    background: var(--bg-card);
+    border-top-color: var(--border-medium);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    color: var(--text-secondary);
+}
+
+.nav-item.active,
+.nav-item:hover {
+    color: var(--primary-color);
+}
+
+/* ============ BUTTON STYLES WITH HOVER ANIMATIONS ============ */
+.btn {
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============ ACTION BUTTONS WITH ANIMATIONS ============ */
+.btn-action {
+    transition: all 0.3s ease;
+    background-color: rgba(255, 149, 0, 0.1);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-action:hover {
+    background-color: rgba(255, 149, 0, 0.25);
+    border-color: var(--primary-color);
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+}
+
+.btn-action:active {
+    transform: scale(0.95);
+}
+
+/* ============ FILTER CHIPS WITH HOVER ANIMATION ============ */
+.filter-chip {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.filter-chip:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(255, 149, 0, 0.2);
+}
+
+.filter-chip.active {
+    background: var(--gradient-primary);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.05);
+}
+
+/* ============ BADGE STYLES WITH ANIMATION ============ */
+.badge {
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.badge:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.badge-vip,
+.badge-bestseller {
+    background: linear-gradient(135deg, #FF9500, #FF7500);
+    color: white;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.badge-new {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.badge-inactive {
+    background: linear-gradient(135deg, #9C9C9C, #808080);
+    color: white;
+}
+
+.badge-instock {
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    color: white;
+}
+
+.badge-lowstock {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 149, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 149, 0, 0.8);
+    }
+}
+
+/* ============ STAT ITEMS WITH HOVER EFFECTS ============ */
+.stat-item {
+    transition: all 0.3s ease;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 149, 0, 0.05);
+}
+
+.stat-item:hover {
+    background: rgba(255, 149, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 149, 0, 0.15);
+}
+
+.stat-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.stat-link:hover .stat-value {
+    color: var(--primary-color);
+    text-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
+}
+
+/* ============ SEARCH INPUT WITH HOVER ANIMATION ============ */
+.search-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.search-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 16px rgba(255, 149, 0, 0.15);
+}
+
+.search-input {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.search-input:focus {
+    background: var(--bg-card);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(255, 149, 0, 0.25);
+}
+
+/* ============ FORM ELEMENTS ============ */
+.form-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+    background-color: var(--bg-secondary);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============ ALERTS ============ */
+.alert {
+    border: 1px solid var(--border-medium);
+}
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--text-primary);
+    border-color: var(--warning);
+}
+
+.alert-danger {
+    background: rgba(244, 67, 54, 0.1);
+    color: var(--text-primary);
+    border-color: var(--danger);
+}
+
+/* ============ EMPTY STATE ============ */
+.empty-state {
+    color: var(--text-primary);
+}
+
+.empty-state i {
+    color: var(--primary-light);
+}
+
+/* ============ RESPONSIVE ADJUSTMENTS ============ */
+@media (max-width: 768px) {
+    body {
+        padding-right: 0;
+    }
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+}

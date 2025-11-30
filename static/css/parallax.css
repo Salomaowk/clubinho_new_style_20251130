@@ -1,0 +1,550 @@
+/* ============================================================ */
+/* PARALLAX THEME CSS - Living Parallax Style                   */
+/* Dark backgrounds, warm orange accents, modern design          */
+/* ============================================================ */
+
+/* ============ NAVBAR STYLING - HIDDEN ============ */
+/* Navbar has been removed from HTML - keep styles for reference */
+.navbar-parallax,
+.navbar-brand,
+.navbar-brand::before,
+.navbar-menu,
+.navbar-menu a,
+.navbar-menu a::after,
+.navbar-toggle {
+    display: none !important;
+}
+
+:root[data-theme="parallax"] #main-content {
+    padding-top: 0;
+}
+
+/* Hide floating tools menu in parallax theme */
+:root[data-theme="parallax"] .floating-tools-menu {
+    display: none;
+}
+
+/* ============ PARALLAX SECTIONS ============ */
+.parallax-section {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    z-index: 0;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--parallax-overlay);
+    z-index: 1;
+}
+
+.parallax-overlay-light {
+    background-color: var(--parallax-overlay-light);
+}
+
+.parallax-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--text-white);
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.parallax-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: -1px;
+}
+
+.parallax-content p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+}
+
+/* ============ CARD STYLING (Parallax Theme) ============ */
+/* Override base card styles for parallax theme */
+:root[data-theme="parallax"] .card,
+:root[data-theme="parallax"] .stat-card,
+:root[data-theme="parallax"] .action-card,
+:root[data-theme="parallax"] .activity-card,
+:root[data-theme="parallax"] .item-card,
+:root[data-theme="parallax"] .order-card,
+:root[data-theme="parallax"] .search-card,
+:root[data-theme="parallax"] .page-header {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border-radius: var(--radius-md);
+}
+
+:root[data-theme="parallax"] .card:hover,
+:root[data-theme="parallax"] .stat-card:hover,
+:root[data-theme="parallax"] .action-card:hover,
+:root[data-theme="parallax"] .item-card:hover,
+:root[data-theme="parallax"] .order-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    border-color: var(--border-medium);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Card headers in parallax theme */
+:root[data-theme="parallax"] .card-header {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.05) 100%);
+    border-bottom: 1px solid var(--border-light);
+    padding: 1.5rem;
+}
+
+:root[data-theme="parallax"] .card-header h5,
+:root[data-theme="parallax"] .card-header .card-title {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Card body */
+:root[data-theme="parallax"] .card-body {
+    padding: 1.5rem;
+}
+
+/* ============ LOGIN PAGE STYLING ============ */
+:root[data-theme="parallax"] .login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Optional: parallax background image on login page */
+:root[data-theme="parallax"] .login-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    z-index: 0;
+}
+
+:root[data-theme="parallax"] .login-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+:root[data-theme="parallax"] .login-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+:root[data-theme="parallax"] .login-card h2 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+:root[data-theme="parallax"] .login-card .login-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+:root[data-theme="parallax"] .login-card .form-label {
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+:root[data-theme="parallax"] .login-card .form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+}
+
+:root[data-theme="parallax"] .login-card .form-control::placeholder {
+    color: var(--text-muted);
+}
+
+:root[data-theme="parallax"] .login-card .form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    outline: none;
+}
+
+:root[data-theme="parallax"] .login-card .btn-login {
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--text-white);
+    font-weight: 600;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+:root[data-theme="parallax"] .login-card .btn-login:hover:not(:disabled) {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    transform: translateY(-2px);
+}
+
+:root[data-theme="parallax"] .login-card .btn-login:active {
+    transform: translateY(0);
+}
+
+:root[data-theme="parallax"] .login-card .login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+:root[data-theme="parallax"] .login-card .login-footer a {
+    color: var(--accent-pink);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+:root[data-theme="parallax"] .login-card .login-footer a:hover {
+    color: var(--accent-pink-medium);
+    text-decoration: underline;
+}
+
+/* ============ BUTTON STYLING (Parallax Theme) ============ */
+:root[data-theme="parallax"] .btn-primary,
+:root[data-theme="parallax"] .btn-add,
+:root[data-theme="parallax"] .btn-calculate {
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--text-white);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+:root[data-theme="parallax"] .btn-primary:hover:not(:disabled),
+:root[data-theme="parallax"] .btn-add:hover:not(:disabled),
+:root[data-theme="parallax"] .btn-calculate:hover:not(:disabled) {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    transform: translateY(-2px);
+}
+
+:root[data-theme="parallax"] .btn-secondary {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+}
+
+:root[data-theme="parallax"] .btn-secondary:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+:root[data-theme="parallax"] .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ============ INPUT & FORM STYLING (Parallax) ============ */
+:root[data-theme="parallax"] input.form-control,
+:root[data-theme="parallax"] select.form-select,
+:root[data-theme="parallax"] textarea.form-control,
+:root[data-theme="parallax"] .search-input,
+:root[data-theme="parallax"] .combobox-input {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 0.875rem;
+    transition: all 0.3s ease;
+}
+
+:root[data-theme="parallax"] input.form-control::placeholder,
+:root[data-theme="parallax"] textarea.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+:root[data-theme="parallax"] input:focus,
+:root[data-theme="parallax"] select:focus,
+:root[data-theme="parallax"] textarea:focus {
+    background-color: var(--bg-secondary);
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    outline: none;
+}
+
+/* ============ TEXT COLORS (Parallax) ============ */
+:root[data-theme="parallax"] .page-title,
+:root[data-theme="parallax"] .section-title,
+:root[data-theme="parallax"] .item-name,
+:root[data-theme="parallax"] .customer-name {
+    color: var(--text-primary);
+}
+
+:root[data-theme="parallax"] .stat-label,
+:root[data-theme="parallax"] .activity-subtitle,
+:root[data-theme="parallax"] .item-details,
+:root[data-theme="parallax"] .order-details {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="parallax"] .text-muted,
+:root[data-theme="parallax"] .small {
+    color: var(--text-muted);
+}
+
+/* ============ STATUS COLORS (Parallax) ============ */
+:root[data-theme="parallax"] .badge-success {
+    background-color: var(--success);
+    color: #000;
+}
+
+:root[data-theme="parallax"] .badge-warning {
+    background-color: var(--warning);
+    color: #000;
+}
+
+:root[data-theme="parallax"] .badge-danger {
+    background-color: var(--danger);
+    color: #fff;
+}
+
+:root[data-theme="parallax"] .badge-info {
+    background-color: var(--info);
+    color: #fff;
+}
+
+/* ============ MODAL STYLING (Parallax) ============ */
+:root[data-theme="parallax"] .modal-content {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+:root[data-theme="parallax"] .modal-header {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.05) 100%);
+    border-bottom: 1px solid var(--border-light);
+}
+
+:root[data-theme="parallax"] .modal-header .modal-title {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+:root[data-theme="parallax"] .modal-header .btn-close {
+    filter: invert(1);
+}
+
+:root[data-theme="parallax"] .modal-body {
+    color: var(--text-primary);
+}
+
+:root[data-theme="parallax"] .modal-footer {
+    border-top: 1px solid var(--border-light);
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+@media (max-width: 768px) {
+    .navbar-parallax {
+        padding: 0 1rem;
+    }
+
+    .navbar-menu {
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .navbar-menu a {
+        font-size: 0.85rem;
+    }
+
+    .parallax-section {
+        min-height: 300px;
+    }
+
+    .parallax-content h1 {
+        font-size: 2rem;
+    }
+
+    .parallax-content p {
+        font-size: 1rem;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+        display: none;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        z-index: 1029;
+    }
+
+    .navbar-menu.show {
+        display: flex;
+    }
+
+    .navbar-menu a {
+        padding: 0.75rem 0.5rem;
+        border-radius: var(--radius-sm);
+    }
+
+    .navbar-menu a:hover {
+        background-color: rgba(255, 107, 53, 0.1);
+    }
+
+    :root[data-theme="parallax"] .login-card {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    :root[data-theme="parallax"] .login-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-parallax {
+        height: 60px;
+        padding: 0 0.75rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .parallax-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .parallax-content p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    :root[data-theme="parallax"] .login-card {
+        padding: 1.25rem;
+        margin: 0.5rem;
+        max-width: 100%;
+    }
+
+    :root[data-theme="parallax"] .login-card h2 {
+        font-size: 1.3rem;
+    }
+}
+
+/* ============ UTILITY CLASSES ============ */
+.text-accent {
+    color: var(--accent-pink);
+}
+
+.text-accent:hover {
+    color: var(--accent-pink-medium);
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}
+
+.border-accent {
+    border-color: var(--accent-pink);
+}
+
+.shadow-lg-parallax {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.parallax-content {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* ============ TRANSITIONS ============ */
+:root[data-theme="parallax"] * {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
