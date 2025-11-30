@@ -197,11 +197,11 @@ function createResultCard(item) {
     card.innerHTML = `
         <div class="result-header">
             <div class="result-icon ${item.category}">
-                ${item.icon}
+                ${escapeHtml(item.icon)}
             </div>
             <div class="result-info">
                 <h3 class="result-title">${highlightText(item.title, searchQuery)}</h3>
-                <span class="result-category">${categoryLabels[item.category]}</span>
+                <span class="result-category">${escapeHtml(categoryLabels[item.category])}</span>
             </div>
         </div>
         <p class="result-description">${highlightText(item.description, searchQuery)}</p>
