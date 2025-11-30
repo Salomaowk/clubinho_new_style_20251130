@@ -1,0 +1,15 @@
+[project]
+name = "clubinho-site"
+version = "0.1.0"
+description = "Local development setup for Clubinho site backup"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "flask",
+  "mysql-connector-python",
+  "python-dotenv>=1.2.1",
+  "requests",
+]
+
+[tool.uv]
+# uv specific settings can go here later
