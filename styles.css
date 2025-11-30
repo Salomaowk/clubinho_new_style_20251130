@@ -21,7 +21,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: var(--text-primary);
     line-height: 1.6;
@@ -189,10 +189,17 @@ body {
     animation: fadeIn 0.3s ease-out;
 }
 
-.result-card:hover {
+.result-card:hover,
+.result-card:focus {
     border-color: var(--primary-color);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+    outline: none;
+}
+
+.result-card:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 .result-header {

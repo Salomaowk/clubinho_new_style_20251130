@@ -186,7 +186,20 @@ function displayResults(data) {
 function createResultCard(item) {
     const card = document.createElement('div');
     card.className = 'result-card';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `Ver detalhes de ${item.title}`);
+    
+    // Handle click
     card.onclick = () => handleResultClick(item);
+    
+    // Handle keyboard (Enter and Space)
+    card.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleResultClick(item);
+        }
+    };
 
     const categoryLabels = {
         clubs: 'Clube',
