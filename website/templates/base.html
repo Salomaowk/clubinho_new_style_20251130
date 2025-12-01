@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Clubinho Bookstore{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Theme System (load first) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}">
+    <!-- Global System CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Floating Tools Menu -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-tools.css') }}">
+    <!-- Accessibility Enhancements -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <!-- Animations & Micro-interactions -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <!-- Parallax Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/parallax.css') }}">
+
+    <!-- Page specific CSS -->
+    {% block extra_css %}{% endblock %}
+
+    <!-- Theme Toggle Script (load early to prevent flash) -->
+    <script src="{{ url_for('static', filename='js/theme-toggle.js') }}" defer></script>
+</head>
+<body>
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container-fluid mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Floating Tools Menu (Desktop - Right Side Vertical) -->
+    <div class="floating-tools-menu" role="navigation" aria-label="Quick tools menu">
+        <!-- Dashboard -->
+        <div class="floating-tool-item">
+            <a href="{{ url_for('dashboard') }}"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'dashboard' }}"
+               data-tool="dashboard"
+               aria-label="Go to Dashboard"
+               title="Dashboard">
+                <i class="fas fa-home"></i>
+            </a>
+        </div>
+
+        <!-- Customers -->
+        <div class="floating-tool-item">
+            <a href="{{ url_for('customers') }}"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'customers' }}"
+               data-tool="customers"
+               aria-label="Go to Customers"
+               title="Customers">
+                <i class="fas fa-users"></i>
+            </a>
+        </div>
+
+        <!-- Assets -->
+        <div class="floating-tool-item">
+            <a href="{{ url_for('books') }}"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'books' }}"
+               data-tool="assets"
+               aria-label="Go to Assets"
+               title="Assets">
+                <i class="fas fa-book"></i>
+            </a>
+        </div>
+
+        <!-- Orders -->
+        <div class="floating-tool-item">
+            <a href="{{ url_for('orders') }}"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'orders' }}"
+               data-tool="orders"
+               aria-label="Go to Orders"
+               title="Orders">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </div>
+
+        <!-- Quotes -->
+        <div class="floating-tool-item">
+            <a href="javascript:void(0);"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'quotes' }}"
+               data-tool="quotes"
+               aria-label="Go to Quotes"
+               title="Quotes"
+               onclick="navigateToQuotes(); return false;">
+                <i class="fas fa-file-invoice"></i>
+            </a>
+        </div>
+
+        <!-- Calculator -->
+        <div class="floating-tool-item">
+            <a href="javascript:void(0);"
+               class="floating-tool-btn {{ 'active' if request.endpoint == 'calculator' }}"
+               data-tool="calculator"
+               aria-label="Go to Calculator"
+               title="Calculator"
+               onclick="navigateToCalculator(); return false;">
+                <i class="fas fa-calculator"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Mobile FAB Container -->
+    <div class="floating-fab-container">
+        <button class="floating-fab-btn" aria-label="Open menu" aria-expanded="false">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="floating-fab-backdrop"></div>
+        <div class="floating-fab-menu">
+            <a href="{{ url_for('dashboard') }}" class="floating-fab-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('customers') }}" class="floating-fab-item">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+            </a>
+            <a href="{{ url_for('books') }}" class="floating-fab-item">
+                <i class="fas fa-book"></i>
+                <span>Assets</span>
+            </a>
+            <a href="{{ url_for('orders') }}" class="floating-fab-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+            <a href="javascript:void(0);" class="floating-fab-item" onclick="navigateToQuotes(); return false;">
+                <i class="fas fa-file-invoice"></i>
+                <span>Quotes</span>
+            </a>
+            <a href="javascript:void(0);" class="floating-fab-item" onclick="navigateToCalculator(); return false;">
+                <i class="fas fa-calculator"></i>
+                <span>Calculator</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Floating Tools Menu -->
+    <script src="{{ url_for('static', filename='js/floating-tools.js') }}"></script>
+
+    <!-- Navbar Toggle (Mobile Navigation) -->
+    <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+
+    <!-- Interactions & Animations -->
+    <script src="{{ url_for('static', filename='js/interactions.js') }}"></script>
+
+    <!-- Floating Menu Navigation Handler -->
+    <script>
+        // Smart navigation for floating menu buttons
+        function navigateToQuotes() {
+            // Check if we're on orders page with tabs
+            const quotesTab = document.getElementById('quotes-tab');
+            if (quotesTab) {
+                // We're on the orders page with tabs, navigate to quotes
+                const tab = new bootstrap.Tab(quotesTab);
+                tab.show();
+                // Trigger quote loading after tab is shown
+                setTimeout(() => {
+                    if (typeof quotesManager !== 'undefined' && quotesManager) {
+                        quotesManager.loadQuotes();
+                    }
+                }, 100);
+            } else {
+                // If no tab found, suggest navigating to Orders page
+                if (confirm('Please navigate to Orders page to access Quotes. Go to Orders now?')) {
+                    window.location.href = '{{ url_for("orders") }}';
+                }
+            }
+        }
+
+        function navigateToCalculator() {
+            // Check if we're on orders page with tabs
+            const calculatorTab = document.getElementById('calculator-tab');
+            if (calculatorTab) {
+                // We're on the orders page with tabs, navigate to calculator
+                const tab = new bootstrap.Tab(calculatorTab);
+                tab.show();
+                // Ensure calculator is initialized after tab is shown
+                setTimeout(() => {
+                    if (typeof ensureCalculatorInitialized === 'function') {
+                        ensureCalculatorInitialized();
+                    }
+                }, 100);
+            } else {
+                // If no tab found, navigate to Orders page directly (no dialog)
+                window.location.href = '{{ url_for("orders") }}';
+            }
+        }
+    </script>
+
+    <!-- Page specific scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,699 @@
+{% extends "base.html" %}
+
+{% block title %}Customers - Clubinho Bookstore{% endblock %}
+
+{% block header_title %}Customers{% endblock %}
+{% block header_subtitle %}Manage customer information{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/page-enhancements.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+    <h2 class="page-title">
+        <i class="fas fa-users me-2" aria-hidden="true"></i>Customer Management
+    </h2>
+    <button class="btn-add"
+            data-bs-toggle="modal"
+            data-bs-target="#addCustomerModal"
+            aria-label="Add new customer">
+        <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Customer
+    </button>
+</div>
+
+<!-- Search Section - Using action-section like Orders page -->
+<div class="action-section">
+    <div class="row g-2 align-items-center mb-3">
+        <div class="col-md-8">
+            <label for="customerSearch" class="sr-only">Search customers</label>
+            <input type="text"
+                   id="customerSearch"
+                   class="form-control search-input"
+                   placeholder="Search customers by name, address, or phone..."
+                   aria-label="Search customers by name, address, or phone">
+        </div>
+        <div class="col-md-4">
+            <label for="sortSelect" class="sr-only">Sort customers</label>
+            <select class="form-select" id="sortSelect" aria-label="Sort customers by criteria">
+                <option value="name">Sort by Name</option>
+                <option value="orders">Sort by Orders</option>
+                <option value="spent">Sort by Total Spent</option>
+                <option value="recent">Sort by Last Order</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="filter-chips" role="group" aria-label="Filter customers by status">
+        <button class="filter-chip active" data-filter="all" type="button">
+            <i class="fas fa-users"></i> All
+        </button>
+        <button class="filter-chip" data-filter="vip" type="button">
+            <i class="fas fa-crown"></i> VIP
+        </button>
+        <button class="filter-chip" data-filter="new" type="button">
+            <i class="fas fa-star"></i> New
+        </button>
+        <button class="filter-chip" data-filter="inactive" type="button">
+            <i class="fas fa-user-slash"></i> Inactive
+        </button>
+    </div>
+</div>
+
+<!-- Customers List -->
+<div class="page-container">
+    {% if customers %}
+        <div id="customerList">
+            {% for customer in customers %}
+                <div class="item-card customer-item"
+                     data-name="{{ customer.customer_name|lower }}"
+                     data-address="{{ (customer.customer_address or '')|lower }}"
+                     data-phone="{{ (customer.customer_telephone or '')|lower }}"
+                     data-orders="{{ customer.total_orders }}"
+                     data-spent="{{ customer.total_spent }}"
+                     data-recent="{{ customer.last_order or '1900-01-01' }}"
+                     data-status="{% if customer.total_spent > 5000 %}vip{% elif customer.total_orders == 0 %}new{% elif customer.last_order and (now() - customer.last_order).days > 90 %}inactive{% else %}regular{% endif %}">
+
+                    <div class="item-header">
+                        <!-- Customer Avatar -->
+                        <div class="customer-avatar" aria-hidden="true">
+                            {{ customer.customer_name[:2] }}
+                        </div>
+
+                        <div class="item-info">
+                            <h5 class="item-name">
+                                {{ customer.customer_name }}
+
+                                <!-- Status Badges -->
+                                {% if customer.total_spent > 5000 %}
+                                    <span class="badge badge-vip">
+                                        <i class="fas fa-crown"></i> VIP
+                                    </span>
+                                {% elif customer.total_orders == 0 %}
+                                    <span class="badge badge-new">
+                                        <i class="fas fa-star"></i> New
+                                    </span>
+                                {% elif customer.last_order and (now() - customer.last_order).days > 90 %}
+                                    <span class="badge badge-inactive">
+                                        <i class="fas fa-user-slash"></i> Inactive
+                                    </span>
+                                {% endif %}
+                            </h5>
+                            <div class="item-details">
+                                {% if customer.customer_address %}
+                                    <div><i class="fas fa-map-marker-alt"></i>{{ customer.customer_address }}</div>
+                                {% endif %}
+                                {% if customer.customer_telephone %}
+                                    <div><i class="fas fa-phone"></i>{{ customer.customer_telephone }}</div>
+                                {% endif %}
+                                {% if customer.customer_delivery_time_request %}
+                                    <div><i class="fas fa-clock"></i>{{ customer.customer_delivery_time_request }}</div>
+                                {% endif %}
+                                <div><i class="fas fa-calendar-plus"></i>Added: {{ customer.created_at.strftime('%m/%d/%Y') if customer.created_at else 'N/A' }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="item-actions">
+                                <!-- Print Button -->
+                            <button class="btn-action btn-print"
+                                    onclick="printCustomerLabel(this)"
+                                    data-id="{{ customer.customer_id }}"
+                                    data-name="{{ customer.customer_name }}"
+                                    data-address="{{ customer.customer_address or '' }}"
+                                    data-telephone="{{ customer.customer_telephone or '' }}"
+                                    aria-label="Print label for {{ customer.customer_name }}"
+                                    title="Print label for {{ customer.customer_name }}">
+                                <i class="fas fa-print" aria-hidden="true"></i>
+                            </button>
+
+                            <!-- Edit Button -->
+                            <button class="btn-action btn-edit"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editCustomerModal"
+                                    data-id="{{ customer.customer_id }}"
+                                    data-name="{{ customer.customer_name }}"
+                                    data-address="{{ customer.customer_address or '' }}"
+                                    data-telephone="{{ customer.customer_telephone or '' }}"
+                                    data-delivery-time="{{ customer.customer_delivery_time_request or '' }}"
+                                    aria-label="Edit {{ customer.customer_name }}"
+                                    title="Edit {{ customer.customer_name }}">
+                                <i class="fas fa-edit" aria-hidden="true"></i>
+                            </button>
+
+                            <!-- Delete Button -->
+                            <button class="btn-action btn-delete"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteCustomerModal"
+                                    data-id="{{ customer.customer_id }}"
+                                    data-name="{{ customer.customer_name }}"
+                                    data-orders="{{ customer.total_orders }}"
+                                    aria-label="Delete {{ customer.customer_name }}"
+                                    title="Delete {{ customer.customer_name }}">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Statistics - Enhanced with Icons -->
+                    <div class="item-stats">
+                        <!-- ORDERS - Clickable stat that goes to all orders -->
+                        {% if customer.total_orders > 0 %}
+                            <a href="{{ url_for('customer_orders', customer_name=customer.customer_name) }}"
+                               class="stat-item stat-link stat-item-with-icon"
+                               title="View all orders for {{ customer.customer_name }}">
+                                <i class="fas fa-shopping-bag stat-icon text-success-custom" aria-hidden="true"></i>
+                                <div class="stat-value stat-value-gradient">{{ customer.total_orders }}</div>
+                                <div class="stat-label">Orders</div>
+                            </a>
+                        {% else %}
+                            <div class="stat-item stat-item-with-icon">
+                                <i class="fas fa-shopping-bag stat-icon text-muted" aria-hidden="true"></i>
+                                <div class="stat-value text-muted">{{ customer.total_orders }}</div>
+                                <div class="stat-label">Orders</div>
+                            </div>
+                        {% endif %}
+
+                        <!-- TOTAL SPENT - Now clickable link to customer account -->
+                        <a href="{{ url_for('customer_account', customer_name=customer.customer_name) }}"
+                           class="stat-item stat-link stat-item-with-icon"
+                           title="View account details for {{ customer.customer_name }}">
+                            <i class="fas fa-yen-sign stat-icon text-primary-custom" aria-hidden="true"></i>
+                            <div class="stat-value stat-value-gradient">¥{{ "{:,.0f}".format(customer.total_spent) }}</div>
+                            <div class="stat-label">Total Spent</div>
+                        </a>
+
+                        <!-- LAST ORDER - Clickable stat that goes to last order -->
+                        {% if customer.last_order %}
+                            <a href="{{ url_for('customer_last_order', customer_name=customer.customer_name) }}"
+                               class="stat-item stat-link stat-item-with-icon"
+                               title="View last order for {{ customer.customer_name }}">
+                                <i class="fas fa-calendar-check stat-icon text-info-custom" aria-hidden="true"></i>
+                                <div class="stat-value stat-value-gradient">{{ customer.last_order.strftime('%m/%d') }}</div>
+                                <div class="stat-label">Last Order</div>
+                            </a>
+                        {% else %}
+                            <div class="stat-item stat-item-with-icon">
+                                <i class="fas fa-calendar-times stat-icon text-muted" aria-hidden="true"></i>
+                                <div class="stat-value text-muted">Never</div>
+                                <div class="stat-label">Last Order</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <h3>No Customers Yet</h3>
+            <p>Add your first customer to get started!</p>
+            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <i class="fas fa-plus me-2"></i>Add First Customer
+            </button>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Status Priority Order Information -->
+<div class="status-info-section">
+    <div class="status-info-card">
+        <h4 class="status-info-title">
+            <i class="fas fa-info-circle"></i> Customer Status Priority Order
+        </h4>
+        <div class="status-info-content">
+            <div class="status-info-item">
+                <span class="status-badge status-badge-vip">
+                    <i class="fas fa-crown"></i> VIP
+                </span>
+                <div class="status-info-details">
+                    <strong>Total Spent > R$ 5,000</strong>
+                    <p>Highest priority customers with significant purchase history</p>
+                </div>
+            </div>
+            <div class="status-info-item">
+                <span class="status-badge status-badge-new">
+                    <i class="fas fa-star"></i> New
+                </span>
+                <div class="status-info-details">
+                    <strong>Total Orders = 0</strong>
+                    <p>Brand new customers who haven't placed any orders yet</p>
+                </div>
+            </div>
+            <div class="status-info-item">
+                <span class="status-badge status-badge-inactive">
+                    <i class="fas fa-user-slash"></i> Inactive
+                </span>
+                <div class="status-info-details">
+                    <strong>Last Order > 90 days ago</strong>
+                    <p>Active customers who haven't ordered in the last 3 months</p>
+                </div>
+            </div>
+            <div class="status-info-item">
+                <span class="status-badge status-badge-regular">
+                    <i class="fas fa-user"></i> Regular
+                </span>
+                <div class="status-info-details">
+                    <strong>Everything Else</strong>
+                    <p>Active customers with recent orders (within 90 days)</p>
+                </div>
+            </div>
+        </div>
+        <div class="status-info-note">
+            <i class="fas fa-lightbulb"></i>
+            <span>Statuses are evaluated in priority order. A customer is assigned to the first matching category.</span>
+        </div>
+    </div>
+</div>
+
+<!-- Add Customer Modal -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCustomerModalLabel">
+                    <i class="fas fa-user-plus me-2" aria-hidden="true"></i>Add New Customer
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="add">
+                    <div class="form-group">
+                        <label for="add_customer_name" class="form-label">Customer Name *</label>
+                        <input type="text"
+                               id="add_customer_name"
+                               class="form-control"
+                               name="customer_name"
+                               required
+                               aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_customer_address" class="form-label">Address</label>
+                        <textarea id="add_customer_address"
+                                  class="form-control"
+                                  name="customer_address"
+                                  rows="2"
+                                  aria-label="Customer address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_customer_telephone" class="form-label">Telephone</label>
+                        <input type="text"
+                               id="add_customer_telephone"
+                               class="form-control"
+                               name="customer_telephone"
+                               aria-label="Customer telephone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_customer_delivery_time" class="form-label">Delivery Time Request</label>
+                        <input type="text"
+                               id="add_customer_delivery_time"
+                               class="form-control"
+                               name="customer_delivery_time_request"
+                               placeholder="e.g., Weekdays after 6PM"
+                               aria-label="Preferred delivery time">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Customer Modal -->
+<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCustomerModalLabel">
+                    <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Edit Customer
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="customer_id" id="edit_customer_id">
+                    <div class="form-group">
+                        <label class="form-label">Customer Name *</label>
+                        <input type="text" class="form-control" name="customer_name" id="edit_customer_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="customer_address" id="edit_customer_address" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telephone</label>
+                        <input type="text" class="form-control" name="customer_telephone" id="edit_customer_telephone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Delivery Time Request</label>
+                        <input type="text" class="form-control" name="customer_delivery_time_request" id="edit_customer_delivery_time">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-warning">Update Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Customer Modal -->
+<div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteCustomerModalLabel">
+                    <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>Delete Customer
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="customer_id" id="delete_customer_id">
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong> This action cannot be undone.
+                    </div>
+                    <p>Are you sure you want to delete customer <strong id="delete_customer_name"></strong>?</p>
+                    <div id="delete_warning" class="alert alert-danger" style="display: none;">
+                        <strong>Cannot delete!</strong> This customer has <span id="delete_order_count"></span> existing order(s). 
+                        Please delete their orders first.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Delete Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add this CSS for the clickable stats and status info -->
+<style>
+.stat-link {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.stat-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.stat-link .stat-value {
+    transition: color 0.2s ease;
+}
+
+.stat-link:hover .stat-value {
+    color: #FF9D8A !important;
+}
+
+.btn-print {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+}
+
+.btn-print:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Status Info Section Styles */
+.status-info-section {
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-xl);
+    padding: 0 var(--space-lg);
+}
+
+.status-info-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.status-info-title {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.status-info-title i {
+    color: var(--primary);
+}
+
+.status-info-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.status-info-item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-base);
+}
+
+.status-info-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.status-badge-vip {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #1a1a1a;
+}
+
+.status-badge-new {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.status-badge-inactive {
+    background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+    color: white;
+}
+
+.status-badge-regular {
+    background: linear-gradient(135deg, #6C7A89 0%, #556B7F 100%);
+    color: white;
+}
+
+.status-info-details {
+    flex: 1;
+}
+
+.status-info-details strong {
+    display: block;
+    color: #FFFFFF;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    font-size: 0.95rem;
+}
+
+.status-info-details p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.status-info-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid #FFC107;
+    border-radius: var(--radius-sm);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.status-info-note i {
+    color: #FFC107;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .status-info-content {
+        grid-template-columns: 1fr;
+    }
+
+    .status-info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .status-badge {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Search functionality
+    const searchInput = document.getElementById('customerSearch');
+    const filterChips = document.querySelectorAll('.filter-chip');
+
+    function applySearchAndFilters() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const activeFilter = document.querySelector('.filter-chip.active')?.dataset.filter || 'all';
+        const customers = document.querySelectorAll('.customer-item');
+
+        customers.forEach(customer => {
+            const name = (customer.dataset.name || '').toLowerCase();
+            const address = (customer.dataset.address || '').toLowerCase();
+            const phone = (customer.dataset.phone || '').toLowerCase();
+            const status = customer.dataset.status || 'regular';
+
+            // Check search match (if no search term, matches all)
+            let matchesSearch = true;
+            if (searchTerm) {
+                matchesSearch = name.indexOf(searchTerm) !== -1 ||
+                               address.indexOf(searchTerm) !== -1 ||
+                               phone.indexOf(searchTerm) !== -1;
+            }
+
+            // Check filter match
+            const matchesFilter = activeFilter === 'all' || status === activeFilter;
+
+            const shouldShow = matchesSearch && matchesFilter;
+            customer.style.display = shouldShow ? 'block' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', applySearchAndFilters);
+
+    // Sort functionality
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        const sortBy = this.value;
+        const container = document.getElementById('customerList');
+        const customers = Array.from(document.querySelectorAll('.customer-item'));
+        
+        customers.sort((a, b) => {
+            switch(sortBy) {
+                case 'name':
+                    return a.dataset.name.localeCompare(b.dataset.name);
+                case 'orders':
+                    return parseInt(b.dataset.orders) - parseInt(a.dataset.orders);
+                case 'spent':
+                    return parseFloat(b.dataset.spent) - parseFloat(a.dataset.spent);
+                case 'recent':
+                    return new Date(b.dataset.recent) - new Date(a.dataset.recent);
+                default:
+                    return 0;
+            }
+        });
+        
+        customers.forEach(customer => container.appendChild(customer));
+    });
+
+    // Edit customer modal
+    document.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('edit_customer_id').value = this.dataset.id;
+            document.getElementById('edit_customer_name').value = this.dataset.name;
+            document.getElementById('edit_customer_address').value = this.dataset.address;
+            document.getElementById('edit_customer_telephone').value = this.dataset.telephone;
+            document.getElementById('edit_customer_delivery_time').value = this.dataset.deliveryTime;
+        });
+    });
+
+    // Delete customer modal
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const orderCount = parseInt(this.dataset.orders);
+            document.getElementById('delete_customer_id').value = this.dataset.id;
+            document.getElementById('delete_customer_name').textContent = this.dataset.name;
+            document.getElementById('delete_order_count').textContent = orderCount;
+            
+            if (orderCount > 0) {
+                document.getElementById('delete_warning').style.display = 'block';
+                document.getElementById('confirmDeleteBtn').disabled = true;
+            } else {
+                document.getElementById('delete_warning').style.display = 'none';
+                document.getElementById('confirmDeleteBtn').disabled = false;
+            }
+        });
+    });
+
+    // Filter chips functionality
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', function() {
+            // Update active state
+            filterChips.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+
+            // Apply search and filter together
+            applySearchAndFilters();
+        });
+    });
+
+    // Print customer label function
+    function printCustomerLabel(button) {
+        const customerData = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            address: button.dataset.address,
+            telephone: button.dataset.telephone
+        };
+        
+        // Create form and submit to print route
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/print-customer-label';
+        form.target = '_blank'; // Open in new tab
+        
+        // Add customer data as hidden inputs
+        Object.keys(customerData).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = customerData[key];
+            form.appendChild(input);
+        });
+        
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+</script>
+{% endblock %}

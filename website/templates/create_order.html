@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Import Calculator - Clubinho Bookstore</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS - CORRECT PATH FOR YOUR STRUCTURE -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="mainTabsContent">
+        <!-- Orders Tab -->
+        <div class="tab-pane fade" id="orders" role="tabpanel">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center mt-4">
+                            <a href="/orders" class="btn btn-primary">
+                                <i class="fas fa-external-link-alt me-2"></i>Go to Full Orders Page
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Tab -->
+        <div class="tab-pane fade show active" id="calculator" role="tabpanel">
+            <div class="container-fluid p-3">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="calculator-container">
+                            <!-- Calculator Header -->
+                            <div class="calculator-header">
+                                <h2><i class="fas fa-book me-2"></i>Book Import Calculator</h2>
+                                <p class="mb-0">Brazil → Japan Import Quotes</p>
+                            </div>
+
+                            <!-- Calculator Form -->
+                            <div class="calculator-form">
+                                <form id="calculatorForm">
+                                    <!-- Customer Name -->
+                                    <div class="form-group">
+                                        <label for="customer-name" class="form-label">
+                                            <i class="fas fa-user me-2"></i>Customer Name
+                                        </label>
+                                        <div class="combobox-container">
+                                            <input type="text" 
+                                                   class="form-control combobox-input" 
+                                                   id="customer-name" 
+                                                   placeholder="Enter customer name or select from list"
+                                                   maxlength="50">
+                                        </div>
+                                        <small class="text-muted">Maximum 50 characters</small>
+                                    </div>
+
+                                    <!-- Book Title -->
+                                    <div class="form-group">
+                                        <label for="book-title" class="form-label">
+                                            <i class="fas fa-book me-2"></i>Book Title
+                                        </label>
+                                        <div class="combobox-container">
+                                            <input type="text" 
+                                                   class="form-control combobox-input" 
+                                                   id="book-title" 
+                                                   placeholder="Enter book title or select from list"
+                                                   maxlength="100">
+                                        </div>
+                                        <small class="text-muted">Maximum 100 characters</small>
+                                    </div>
+
+                                    <!-- Book Price -->
+                                    <div class="form-group">
+                                        <label for="book-price" class="form-label">
+                                            <i class="fas fa-dollar-sign me-2"></i>Book Price <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" 
+                                               class="form-control" 
+                                               id="book-price" 
+                                               placeholder="e.g., 25.90"
+                                               step="0.01"
+                                               min="0"
+                                               required>
+                                        <small class="currency-note">Brazilian Real (R$)</small>
+                                    </div>
+
+                                    <!-- Profit -->
+                                    <div class="form-group">
+                                        <div class="label-with-button">
+                                            <label for="profit-display" class="form-label profit-label">
+                                                <i class="fas fa-chart-line me-2"></i>Profit (30%) <span class="text-danger">*</span>
+                                            </label>
+                                            <button type="button" class="btn-edit-profit" title="Edit profit percentage">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="profit-display"
+                                               value="Will be calculated automatically"
+                                               readonly>
+                                        <div class="custom-input">
+                                            <input type="number" 
+                                                   class="form-control mt-2" 
+                                                   id="custom-profit"
+                                                   placeholder="Enter custom profit percentage"
+                                                   step="0.01"
+                                                   min="0"
+                                                   max="100">
+                                        </div>
+                                        <small class="currency-note">Brazilian Real (R$)</small>
+                                    </div>
+
+                                    <!-- Shipping Cost -->
+                                    <div class="form-group">
+                                        <label for="shipping-cost" class="form-label">
+                                            <i class="fas fa-shipping-fast me-2"></i>Shipping Cost <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" id="shipping-cost" required>
+                                            <option value="">Select shipping cost</option>
+                                            <option value="15.00">R$ 15.00 - Standard</option>
+                                            <option value="25.00">R$ 25.00 - Express</option>
+                                            <option value="35.00">R$ 35.00 - Priority</option>
+                                            <option value="45.00">R$ 45.00 - International Express</option>
+                                        </select>
+                                        <small class="currency-note">Brazilian Real (R$)</small>
+                                    </div>
+
+                                    <!-- Shipping Adjustment -->
+                                    <div class="form-group">
+                                        <label for="shipping-adjustment" class="form-label">
+                                            <i class="fas fa-cog me-2"></i>Shipping Adjustment
+                                        </label>
+                                        <input type="number" 
+                                               class="form-control" 
+                                               id="shipping-adjustment" 
+                                               placeholder="e.g., 200"
+                                               step="1"
+                                               min="0">
+                                        <small class="currency-note">Additional amount in Japanese Yen (¥) - optional</small>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="button-container">
+                                        <button type="submit" class="btn-calculate" id="calculate-btn" disabled>
+                                            <i class="fas fa-calculator me-2"></i>Calculate Quote
+                                        </button>
+                                        <button type="button" class="btn-clear" id="clear-btn">
+                                            <i class="fas fa-eraser me-2"></i>Clear
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <!-- Results Section -->
+                                <div class="results" id="results" style="display: none;">
+                                    <!-- Results will be dynamically populated here -->
+                                </div>
+
+                                <!-- Messages -->
+                                <div id="messages-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Calculator JS - CORRECT PATH FOR YOUR STRUCTURE -->
+    <script src="/static/js/calculator.js"></script>
+</body>
+</html>

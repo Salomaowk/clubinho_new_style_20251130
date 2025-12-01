@@ -1,0 +1,406 @@
+/* ============================================
+   FLOATING TOOLS MENU - RIGHT SIDE VERTICAL
+   ============================================ */
+
+/* Main container - fixed right side */
+.floating-tools-menu {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding: 12px 8px 12px 24px;
+}
+
+/* Mobile FAB container - hidden by default */
+.floating-fab-container {
+    display: none;
+}
+
+/* Hide scrollbar but keep functionality */
+.floating-tools-menu::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+/* Individual menu item container */
+.floating-tool-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Button/icon element */
+.floating-tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+    color: var(--primary-color);
+    font-size: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Icon styling */
+.floating-tool-btn i {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.floating-tool-btn:hover {
+    transform: translateX(-4px) scale(1.05);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.floating-tool-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Active state */
+.floating-tool-btn:active {
+    transform: translateX(-4px) scale(0.98);
+}
+
+/* Label - appears on hover */
+.floating-tool-label {
+    position: absolute;
+    right: 70px;
+    white-space: nowrap;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    border: 1px solid var(--border-light);
+    z-index: 1;
+    display: none;
+}
+
+/* Label arrow */
+.floating-tool-label::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 8px;
+    border-color: transparent transparent transparent var(--bg-card);
+}
+
+/* Show label on hover */
+.floating-tool-item:hover .floating-tool-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    display: block;
+}
+
+/* Special styling for theme toggle */
+.floating-tool-btn.theme-toggle {
+    background: var(--gradient-accent);
+}
+
+.floating-tool-btn.theme-toggle:hover {
+    background: var(--gradient-primary-hover);
+}
+
+/* Active tool highlight */
+.floating-tool-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+/* Tooltip for keyboard shortcut */
+.floating-tool-shortcut {
+    display: block;
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* ============================================
+   MOBILE ADAPTATION - FAB (Floating Action Button)
+   ============================================ */
+
+@media (max-width: 992px) {
+    /* Hide vertical menu on mobile/tablet */
+    .floating-tools-menu {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+        position: fixed;
+        right: -9999px;
+        top: -9999px;
+    }
+
+    /* Show FAB instead */
+    .floating-fab-container {
+        display: block !important;
+        visibility: visible !important;
+        position: fixed;
+        bottom: 100px; /* Above bottom nav */
+        right: 16px;
+        z-index: 999;
+    }
+
+    /* Main FAB button */
+    .floating-fab-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-fab-btn:active {
+        transform: scale(0.95);
+    }
+
+    .floating-fab-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    /* Rotate icon when menu is open */
+    .floating-fab-btn.active i {
+        transform: rotate(45deg);
+    }
+
+    /* Mobile drawer menu */
+    .floating-fab-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-top-left-radius: var(--radius-xl);
+        border-top-right-radius: var(--radius-xl);
+        box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.2);
+        padding: 24px 20px 100px; /* Extra bottom for nav bar */
+        max-height: 70vh;
+        overflow-y: auto;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 998;
+    }
+
+    .floating-fab-menu.show {
+        transform: translateY(0);
+    }
+
+    /* Drawer handle */
+    .floating-fab-menu::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 4px;
+        background: var(--border-medium);
+        border-radius: 2px;
+    }
+
+    /* Menu grid */
+    .floating-fab-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    /* Menu items in drawer */
+    .floating-fab-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 12px;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-light);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: var(--text-primary);
+        min-height: 100px;
+    }
+
+    .floating-fab-item:active {
+        transform: scale(0.96);
+        background: var(--gradient-primary);
+        color: white;
+    }
+
+    .floating-fab-item i {
+        font-size: 28px;
+        color: var(--primary-color);
+        transition: color 0.2s ease;
+    }
+
+    .floating-fab-item:active i {
+        color: white;
+    }
+
+    .floating-fab-item span {
+        font-size: 13px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Backdrop overlay */
+    .floating-fab-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 997;
+    }
+
+    .floating-fab-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Desktop - hide FAB components */
+@media (min-width: 993px) {
+    .floating-fab-container,
+    .floating-fab-backdrop {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* Show desktop menu */
+    .floating-tools-menu {
+        display: flex !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        opacity: 1 !important;
+        position: fixed;
+        right: 16px;
+        top: 16px;
+    }
+}
+
+/* ============================================
+   THEME TOGGLE SPECIFIC STYLES
+   ============================================ */
+
+/* Sun/Moon icon animation */
+.theme-icon {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.theme-icon.hidden {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+}
+
+.theme-icon.visible {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Focus states for keyboard navigation */
+.floating-tool-btn:focus,
+.floating-fab-btn:focus,
+.floating-fab-item:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .floating-tool-btn,
+    .floating-tool-label,
+    .floating-fab-btn,
+    .floating-fab-menu,
+    .floating-fab-backdrop,
+    .theme-icon {
+        transition: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .floating-tool-btn,
+    .floating-fab-btn,
+    .floating-fab-item {
+        border-width: 3px;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Hide element but keep accessible for screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Prevent body scroll when menu is open (mobile) */
+body.floating-menu-open {
+    overflow: hidden;
+}

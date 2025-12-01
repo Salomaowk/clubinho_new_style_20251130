@@ -1,0 +1,611 @@
+/* =============================================================================
+   ANIMATIONS.CSS - Micro-interactions and Smooth Animations
+   ============================================================================= */
+
+/* ============ KEYFRAME ANIMATIONS ============ */
+
+/* Page fade in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger fade in for cards */
+@keyframes staggerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in from top */
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in from bottom */
+@keyframes slideInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Shake error animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Bounce success animation */
+@keyframes successBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+/* Pulse animation for notifications */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Shimmer loading skeleton */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Ripple effect */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Rotate spin */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Scale up */
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Flip in */
+@keyframes flipIn {
+    from {
+        transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+/* Progress bar animation */
+@keyframes progress {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* Glow effect */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(155, 122, 184, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(155, 122, 184, 0.8);
+    }
+}
+
+/* Count up animation (used with JavaScript) */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ============ UTILITY ANIMATION CLASSES ============ */
+
+/* Page load animations */
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+.animate-stagger {
+    animation: staggerFadeIn 0.5s ease-out;
+}
+
+.animate-slide-in-top {
+    animation: slideInTop 0.3s ease-out;
+}
+
+.animate-slide-in-bottom {
+    animation: slideInBottom 0.3s ease-out;
+}
+
+/* Interactive animations */
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-bounce {
+    animation: successBounce 0.6s ease-in-out;
+}
+
+.animate-pulse {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.animate-scale-up {
+    animation: scaleUp 0.3s ease-out;
+}
+
+.animate-flip-in {
+    animation: flipIn 0.5s ease-out;
+}
+
+/* ============ STAGGERED ANIMATIONS ============ */
+
+/* Apply staggered delays for list items */
+.stagger-item:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.stagger-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.stagger-item:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.stagger-item:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.stagger-item:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.stagger-item:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.stagger-item:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.stagger-item:nth-child(8) {
+    animation-delay: 0.4s;
+}
+
+/* ============ BUTTON ANIMATIONS ============ */
+
+/* Button press effect */
+.btn-press:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-out;
+}
+
+/* Button ripple container */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ============ CARD ANIMATIONS ============ */
+
+/* Card lift on hover */
+.card-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Card flip effect */
+.card-flip {
+    perspective: 1000px;
+}
+
+.card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card-flip.flipped .card-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.card-flip-front,
+.card-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-flip-back {
+    transform: rotateY(180deg);
+}
+
+/* ============ LOADING STATES ============ */
+
+/* Spinner */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(155, 122, 184, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.spinner-lg {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--border) 0%,
+        var(--hover-bg) 50%,
+        var(--border) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+    height: 1em;
+    margin-bottom: 0.5em;
+}
+
+.skeleton-title {
+    height: 1.5em;
+    width: 60%;
+}
+
+.skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+/* Progress bar */
+.progress-bar-animated {
+    position: relative;
+    overflow: hidden;
+    background: var(--border);
+    border-radius: var(--radius-pill);
+    height: 4px;
+}
+
+.progress-bar-animated::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--primary);
+    border-radius: var(--radius-pill);
+    animation: progress 2s ease-in-out;
+}
+
+/* ============ MODAL ANIMATIONS ============ */
+
+/* Modal fade + scale */
+.modal.fade .modal-dialog {
+    transform: scale(0.8) translateY(-20px);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+/* Backdrop blur - Increased opacity for better visibility */
+.modal-backdrop {
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: backdrop-filter 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+/* ============ TOAST NOTIFICATIONS ============ */
+
+/* Toast slide in from top */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    animation: slideInTop 0.3s ease-out;
+    border: 1px solid var(--border);
+}
+
+.toast.hiding {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+.toast-success {
+    border-left: 4px solid var(--success);
+}
+
+.toast-error {
+    border-left: 4px solid var(--danger);
+}
+
+.toast-warning {
+    border-left: 4px solid var(--warning);
+}
+
+.toast-info {
+    border-left: 4px solid var(--info);
+}
+
+/* Toast progress bar */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 0 0 0 var(--radius-md);
+    animation: progress 5s linear;
+}
+
+/* ============ FORM ANIMATIONS ============ */
+
+/* Input focus glow */
+.form-control-animated:focus {
+    animation: glow 0.3s ease-out;
+}
+
+/* Label float */
+.form-floating-animated label {
+    transition: all var(--transition-base);
+}
+
+.form-floating-animated input:focus ~ label,
+.form-floating-animated input:not(:placeholder-shown) ~ label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--primary);
+}
+
+/* Error shake */
+.form-error {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Success checkmark */
+.form-success::after {
+    content: '✓';
+    color: var(--success);
+    animation: successBounce 0.6s ease-in-out;
+}
+
+/* ============ SCROLL ANIMATIONS ============ */
+
+/* Fade in on scroll (add via JavaScript) */
+.fade-in-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============ AVATAR ANIMATIONS ============ */
+
+/* Avatar pulse */
+.avatar-pulse {
+    position: relative;
+}
+
+.avatar-pulse::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: pulse 2s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* ============ GRADIENT ANIMATIONS ============ */
+
+/* Animated gradient background */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animated {
+    background: linear-gradient(
+        270deg,
+        var(--primary),
+        var(--primary-light),
+        var(--primary-dark)
+    );
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* ============ ACCESSIBILITY: REDUCED MOTION ============ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .skeleton {
+        animation: none;
+        background: var(--border);
+    }
+
+    .spinner {
+        animation: none;
+        border-top-color: transparent;
+    }
+}
+
+/* ============ HOVER MICRO-INTERACTIONS ============ */
+
+/* Icon bounce on hover */
+.icon-hover-bounce:hover i {
+    animation: successBounce 0.6s ease-in-out;
+}
+
+/* Icon rotate on hover */
+.icon-hover-rotate:hover i {
+    transform: rotate(360deg);
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Icon scale on hover */
+.icon-hover-scale:hover i {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-out;
+}
+
+/* ============ BADGE ANIMATIONS ============ */
+
+/* Badge count up */
+.badge-count-up {
+    animation: scaleUp 0.3s ease-out;
+}
+
+/* Badge pulse for notifications */
+.badge-notification {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ============ PERFORMANCE OPTIMIZATIONS ============ */
+
+/* Enable hardware acceleration for smoother animations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+/* Disable animations for elements outside viewport (handled by JS) */
+.outside-viewport {
+    animation-play-state: paused;
+}

@@ -1,0 +1,449 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Clubinho Bookstore{% endblock %}
+{% block header_title %}Dashboard{% endblock %}
+{% block header_subtitle %}Welcome back, {{ current_user or 'Admin' }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Dashboard Specific Enhancements */
+
+/* Stat card gradients and improvements */
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+/* Trend indicators */
+.stat-trend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.stat-trend.up {
+    color: var(--success);
+}
+
+.stat-trend.down {
+    color: var(--danger);
+}
+
+.stat-trend i {
+    font-size: 0.875rem;
+}
+
+/* Quick action gradient hover */
+.action-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    z-index: 0;
+}
+
+.action-card:hover::before {
+    opacity: 0.1;
+}
+
+.action-card .action-icon,
+.action-card .action-title {
+    position: relative;
+    z-index: 1;
+}
+
+/* Activity item enhancements */
+.activity-icon {
+    box-shadow: var(--shadow-sm);
+}
+
+.activity-item:hover .activity-icon {
+    transform: scale(1.1);
+    transition: transform var(--transition-base);
+}
+
+/* Timestamp improvements */
+.activity-timestamp {
+    font-size: 0.6875rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+/* Customer balance color coding */
+.balance-positive {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+.balance-negative {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Stats Overview -->
+<div class="stats-container">
+    <div class="row g-3">
+        <div class="col-6">
+            <div class="stat-card" data-animate-scroll>
+                <i class="fas fa-users stat-icon text-primary-custom"></i>
+                <div class="stat-number text-primary-custom">{{ stats.total_customers or 0 }}</div>
+                <div class="stat-label">Customers</div>
+                <div class="stat-trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>12%</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="stat-card" data-animate-scroll>
+                <i class="fas fa-book stat-icon text-success-custom"></i>
+                <div class="stat-number text-success-custom">{{ stats.total_books or 0 }}</div>
+                <div class="stat-label">Assets</div>
+                <div class="stat-trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>8%</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="stat-card" data-animate-scroll>
+                <i class="fas fa-shopping-cart stat-icon text-info-custom"></i>
+                <div class="stat-number text-info-custom">{{ stats.total_orders or 0 }}</div>
+                <div class="stat-label">Orders</div>
+                <div class="stat-trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>5%</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="stat-card" data-animate-scroll>
+                <i class="fas fa-yen-sign stat-icon text-warning-custom"></i>
+                <div class="stat-number text-warning-custom">¥{{ "{:,.0f}".format(stats.total_revenue or 0) }}</div>
+                <div class="stat-label">Revenue</div>
+                <div class="stat-trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>18%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="action-grid" role="list">
+        <a href="{{ url_for('customers') }}" class="action-card icon-hover-bounce" role="listitem" aria-label="Manage customers">
+            <i class="fas fa-users action-icon text-primary-custom" aria-hidden="true"></i>
+            <h3 class="action-title">Customers</h3>
+        </a>
+        <a href="{{ url_for('books') }}" class="action-card icon-hover-bounce" role="listitem" aria-label="Manage assets and books">
+            <i class="fas fa-book action-icon text-success-custom" aria-hidden="true"></i>
+            <h3 class="action-title">Assets</h3>
+        </a>
+        <a href="{{ url_for('orders') }}" class="action-card icon-hover-bounce" role="listitem" aria-label="Manage orders">
+            <i class="fas fa-shopping-cart action-icon text-info-custom" aria-hidden="true"></i>
+            <h3 class="action-title">Orders</h3>
+        </a>
+        <a href="{{ url_for('reports') }}" class="action-card icon-hover-bounce" role="listitem" aria-label="View reports">
+            <i class="fas fa-chart-bar action-icon text-warning-custom" aria-hidden="true"></i>
+            <h3 class="action-title">Reports</h3>
+        </a>
+    </div>
+</div>
+
+<!-- Customer Account Balances -->
+<div class="recent-section" data-animate-scroll>
+    <h2 class="section-title">
+        Customer Account Balances
+        <span class="registry-count">{{ customer_balances|length }}</span>
+    </h2>
+    <div class="activity-card">
+        {% if customer_balances %}
+            {% for customer in customer_balances %}
+            <div class="activity-item">
+                <div class="activity-icon {% if customer.balance > 0 %}bg-danger-light text-danger{% else %}bg-success-light text-success{% endif %}">
+                    <i class="fas fa-yen-sign"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">
+                        <a href="{{ url_for('customer_account', customer_name=customer.name) }}"
+                           style="color: #8A8AFF; text-decoration: none;">
+                            {{ customer.name[:25] }}{% if customer.name|length > 25 %}...{% endif %}
+                        </a>
+                    </div>
+                    <div class="activity-subtitle">
+                        {{ customer.last_description[:40] }}{% if customer.last_description|length > 40 %}...{% endif %}
+                    </div>
+                </div>
+                <div class="activity-value {% if customer.balance > 0 %}balance-positive{% else %}balance-negative{% endif %}">
+                    {% if customer.balance > 0 %}+{% else %}-{% endif %}¥{{ "{:,.0f}".format(customer.balance if customer.balance > 0 else -customer.balance) }}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="activity-item">
+            <div class="activity-icon bg-light text-muted">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">No outstanding balances</div>
+                <div class="activity-subtitle">All customers are up to date</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<!-- Processing Orders -->
+<div class="recent-section" data-animate-scroll>
+    <h2 class="section-title">
+        Processing Orders
+        <span class="registry-count">{{ processing_orders|length }}</span>
+    </h2>
+
+    <!-- Batch Controls -->
+    <div class="batch-controls-dashboard" id="dashboardBatchControls" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded mb-2">
+            <div><span id="dashboardSelectedCount">0</span> orders selected</div>
+            <div>
+                <button class="btn btn-primary btn-sm" id="dashboardBatchEditBtn">
+                    <i class="fas fa-edit me-1"></i>Edit
+                </button>
+                <button class="btn btn-secondary btn-sm" id="dashboardClearSelectionBtn">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity-card">
+        {% if processing_orders %}
+            {% for order in processing_orders %}
+            <div class="activity-item">
+                <div class="dashboard-order-checkbox">
+                    <input type="checkbox" class="dashboard-order-select-checkbox"
+                           data-order-id="{{ order.order_id }}"
+                           data-customer-name="{{ order.customer_name }}"
+                           data-current-delivery-date="{{ order.delivery_date or '' }}"
+                           data-current-payment-type="{{ order.payment_type or '' }}">
+                </div>
+                <div class="activity-icon bg-warning-light text-warning">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">
+                        <a href="{{ url_for('orders', customer=order.customer_name, sort='recent', limit=1) }}"
+                           style="color: #8A8AFF; text-decoration: none;">
+                            {{ order.asset_name[:25] }}{% if order.asset_name|length > 25 %}...{% endif %}
+                        </a>
+                    </div>
+                    <div class="activity-subtitle">
+                        {{ order.customer_name[:20] }}{% if order.customer_name|length > 20 %}...{% endif %}
+                        <div class="activity-timestamp">
+                            Created: {{ order.created_at.strftime('%Y/%m/%d %H:%M') if order.created_at else 'N/A' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-value">¥{{ "{:,.0f}".format(order.total_value) }}</div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="activity-item">
+            <div class="activity-icon bg-light text-muted">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">No processing orders</div>
+                <div class="activity-subtitle">All orders are delivered or pending</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+<!-- Top Customers -->
+<div class="recent-section" data-animate-scroll>
+    <h2 class="section-title">Top Customers</h2>
+    <div class="activity-card">
+        {% if top_customers %}
+            {% for customer in top_customers %}
+            <div class="activity-item">
+                <div class="activity-icon bg-primary-light text-primary-custom">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">{{ customer.name[:25] }}{% if customer.name|length > 25 %}...{% endif %}</div>
+                    <div class="activity-subtitle">{{ customer.order_count }} orders</div>
+                </div>
+                <div class="activity-value">¥{{ "{:,.0f}".format(customer.total_spent) }}</div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="activity-item">
+            <div class="activity-icon bg-light text-muted">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">No customer data</div>
+                <div class="activity-subtitle">Add customers to see analytics</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Include existing batch edit modal -->
+{% include 'partials/order_modals.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Dashboard batch selection functionality
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('dashboard-order-select-checkbox')) {
+            updateDashboardBatchControls();
+        }
+    });
+
+    // Dashboard batch edit button
+    document.getElementById('dashboardBatchEditBtn')?.addEventListener('click', openDashboardBatchEditModal);
+
+    // Dashboard clear selection button
+    document.getElementById('dashboardClearSelectionBtn')?.addEventListener('click', clearDashboardSelections);
+
+    function updateDashboardBatchControls() {
+        const checkedBoxes = document.querySelectorAll('.dashboard-order-select-checkbox:checked');
+        const batchControls = document.getElementById('dashboardBatchControls');
+        const selectedCount = document.getElementById('dashboardSelectedCount');
+
+        if (checkedBoxes.length > 0) {
+            batchControls.style.display = 'block';
+            selectedCount.textContent = checkedBoxes.length;
+        } else {
+            batchControls.style.display = 'none';
+        }
+    }
+
+    function clearDashboardSelections() {
+        const checkboxes = document.querySelectorAll('.dashboard-order-select-checkbox:checked');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateDashboardBatchControls();
+    }
+
+    function openDashboardBatchEditModal() {
+        const checkedBoxes = document.querySelectorAll('.dashboard-order-select-checkbox:checked');
+        if (checkedBoxes.length === 0) return;
+
+        // Debug: Check if modal exists
+        const modal = document.getElementById('batchEditModal');
+        const batchOrderCount = document.getElementById('batchOrderCount');
+        const batchOrderIds = document.getElementById('batchOrderIds');
+
+        if (!modal) {
+            alert('Modal not found! Check if partials/order_modals.html is loading correctly.');
+            return;
+        }
+
+        // Collect order IDs
+        const orderIds = Array.from(checkedBoxes).map(checkbox => checkbox.dataset.orderId);
+
+        // Update existing modal content
+        if (batchOrderCount) batchOrderCount.textContent = checkedBoxes.length;
+        if (batchOrderIds) batchOrderIds.value = orderIds.join(',');
+
+        // IMPORTANT: Change form action to include return parameter
+        const form = document.getElementById('batchEditForm');
+        if (form) {
+            form.action = "/orders/batch-edit?return=dashboard";
+        }
+
+        // Show existing modal
+        const batchModal = new bootstrap.Modal(modal);
+        batchModal.show();
+    }
+</script>
+
+<style>
+    .dashboard-order-checkbox {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .dashboard-order-select-checkbox {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .activity-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .batch-controls-dashboard {
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .registry-count {
+        font-size: 0.8em;
+        color: #6c757d;
+        font-weight: normal;
+        background: #f8f9fa;
+        padding: 2px 8px;
+        border-radius: 12px;
+        border: 1px solid #dee2e6;
+    }
+</style>
+
+{% endblock %}

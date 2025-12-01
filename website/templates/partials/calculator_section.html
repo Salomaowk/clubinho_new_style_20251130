@@ -1,0 +1,511 @@
+<!-- Calculator Section -->
+<div class="calculator-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2 class="page-title">
+            <i class="fas fa-calculator me-2" aria-hidden="true"></i>Book Import Calculator
+        </h2>
+        <p class="page-subtitle">Brazil → Japan Import Quotes</p>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="messages-container"></div>
+
+    <!-- Page Container for form -->
+    <div class="page-container">
+    <form class="calculator-form" id="calculatorForm" novalidate>
+        <!-- Customer Name -->
+        <div class="form-group">
+            <label class="form-label" for="customer-name">
+                <i class="fas fa-user me-2"></i>Customer Name
+            </label>
+            <div class="combobox-container">
+                <input type="text" 
+                       id="customer-name" 
+                       name="customer-name"
+                       class="form-control combobox-input" 
+                       placeholder="Type customer name..." 
+                       maxlength="50"
+                       autocomplete="off">
+            </div>
+            <small class="currency-note">Maximum 50 characters</small>
+        </div>
+
+        <!-- Book Title -->
+        <div class="form-group">
+            <label class="form-label" for="book-title">
+                <i class="fas fa-book me-2"></i>Book Title
+            </label>
+            <div class="combobox-container">
+                <input type="text" 
+                       id="book-title" 
+                       name="book-title"
+                       class="form-control combobox-input" 
+                       placeholder="Type book title..." 
+                       maxlength="100"
+                       autocomplete="off">
+            </div>
+            <small class="currency-note">Maximum 100 characters</small>
+        </div>
+
+        <!-- Book Price -->
+        <div class="form-group">
+            <label class="form-label" for="book-price">
+                <i class="fas fa-dollar-sign me-2"></i>Book Price <span class="text-danger">*</span>
+            </label>
+            <input type="number" 
+                   id="book-price" 
+                   name="book-price"
+                   class="form-control" 
+                   placeholder="e.g., 25.90" 
+                   step="0.01" 
+                   min="0" 
+                   required>
+            <small class="currency-note">Brazilian Real (R$)</small>
+        </div>
+
+        <!-- Profit Percentage -->
+        <div class="form-group">
+            <div class="label-with-button">
+                <label class="form-label profit-label">
+                    <i class="fas fa-chart-line me-2"></i>Profit (30%) <span class="text-danger">*</span>
+                </label>
+                <button type="button" class="btn-edit-profit" title="Edit profit percentage">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </div>
+            <input type="text" 
+                   class="form-control" 
+                   value="Will be calculated automatically" 
+                   readonly
+                   tabindex="-1">
+            <div class="custom-input" style="display: none;">
+                <input type="number" 
+                       id="custom-profit" 
+                       name="custom-profit"
+                       class="form-control" 
+                       placeholder="Enter custom profit percentage"
+                       min="0" 
+                       max="100" 
+                       step="0.1">
+            </div>
+            <small class="currency-note">Brazilian Real (R$)</small>
+        </div>
+
+        <!-- Shipping Cost -->
+        <div class="form-group">
+            <label class="form-label" for="shipping-cost">
+                <i class="fas fa-shipping-fast me-2"></i>Shipping Cost <span class="text-danger">*</span>
+            </label>
+            <select id="shipping-cost" name="shipping-cost" class="form-control" required>
+                <option value="">Select shipping cost</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+            <input type="number" 
+                   id="shipping-custom" 
+                   name="shipping-custom"
+                   class="form-control" 
+                   placeholder="Enter custom shipping cost"
+                   min="0" 
+                   step="0.01"
+                   style="display: none; margin-top: 10px;">
+            <small class="currency-note">Brazilian Real (R$)</small>
+        </div>
+
+        <!-- Shipping Adjustment -->
+        <div class="form-group">
+            <label class="form-label" for="shipping-adjustment">
+                <i class="fas fa-cog me-2"></i>Shipping Adjustment
+            </label>
+            <input type="number" 
+                   id="shipping-adjustment" 
+                   name="shipping-adjustment"
+                   class="form-control" 
+                   placeholder="e.g., 200" 
+                   step="1">
+            <small class="currency-note">Additional amount in Japanese Yen (¥) - optional</small>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-container">
+            <button type="submit" class="btn-calculate" id="calculate-btn">
+                <i class="fas fa-calculator me-2"></i>Calculate Quote
+            </button>
+            <button type="button" class="btn-clear" id="clear-btn">
+                <i class="fas fa-trash me-2"></i>Clear
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results" id="results" style="display: none;">
+            <!-- Results will be dynamically populated by JavaScript -->
+        </div>
+    </form>
+    </div> <!-- Close page-container -->
+</div> <!-- Close calculator-container -->
+
+<style>
+/* Calculator Form Styles */
+.calculator-form {
+    max-width: 100%;
+}
+
+.form-group {
+    margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #FFFFFF;
+}
+
+.form-label .text-danger {
+    color: #e74c3c;
+}
+
+.form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md) var(--space-lg);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.875rem;
+    transition: all var(--transition-base);
+}
+
+.form-control::placeholder,
+.form-select option {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.form-select option {
+    background-color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Combobox Styles */
+.combobox-container {
+    position: relative;
+    width: 100%;
+}
+
+.combobox-dropdown {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-top: 1px solid #d0d0d0;
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 2000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.combobox-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 200ms ease;
+    color: #333;
+    font-size: 0.9375rem;
+}
+
+.combobox-option:hover {
+    background-color: #e8f4f8;
+    color: #0066cc;
+}
+
+.combobox-option:last-child {
+    border-bottom: none;
+}
+
+.combobox-option.add-new {
+    background-color: #e8f4f8;
+    color: #0066cc;
+    font-weight: 600;
+    border-top: 1px solid #d0e8f2;
+}
+
+.combobox-option.add-new:hover {
+    background-color: #d1ecf1;
+    color: #004499;
+}
+
+.custom-input {
+    margin-top: var(--space-md);
+}
+
+.btn-edit-profit {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-edit-profit:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.label-with-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.currency-note {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: var(--space-sm);
+    display: block;
+}
+
+.results {
+    margin-top: var(--space-lg);
+    padding: var(--space-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.result-value {
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.copy-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.btn-copy, .btn-approve {
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-height: 36px;
+}
+
+.btn-copy {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-copy:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-copy.copied {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-approve {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    color: #FF9D8A !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important;
+}
+
+.btn-approve:hover {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(76, 209, 55, 0.6) !important;
+}
+
+.exchange-info {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: var(--space-lg);
+    font-style: italic;
+}
+
+.button-container {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: 0;
+    margin-top: var(--space-lg);
+}
+
+.btn-calculate {
+    flex: 2;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #FF9D8A;
+    border: none;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    min-height: var(--touch-target-min);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), var(--shadow-sm);
+}
+
+.btn-calculate:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), var(--shadow-md);
+}
+
+.btn-calculate:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-clear {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    min-height: var(--touch-target-min);
+}
+
+.btn-clear:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.alert {
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+}
+
+.alert-success {
+    color: #1abc9c;
+    background-color: rgba(26, 188, 156, 0.2);
+    border-color: rgba(26, 188, 156, 0.3);
+}
+
+.alert-danger {
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.2);
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
+.btn-close {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: inherit;
+}
+</style>
+
+<script>
+// Function to switch tabs (called from template)
+function switchToCalculator() {
+    const calculatorTab = document.getElementById('calculator-tab');
+    if (calculatorTab) {
+        calculatorTab.click();
+        // Ensure calculator is initialized when tab is switched
+        setTimeout(() => {
+            if (window.ensureCalculatorInitialized) {
+                window.ensureCalculatorInitialized();
+            }
+        }, 100);
+    }
+}
+
+function switchToOrders() {
+    const ordersTab = document.getElementById('orders-tab');
+    if (ordersTab) {
+        ordersTab.click();
+    }
+}
+
+function switchToQuotes() {
+    const quotesTab = document.getElementById('quotes-tab');
+    if (quotesTab) {
+        quotesTab.click();
+    }
+}
+
+// Initialize calculator when this section becomes visible
+document.addEventListener('DOMContentLoaded', function() {
+    // Observer to detect when calculator tab becomes active
+    const calculatorContent = document.getElementById('calculator-content');
+    if (calculatorContent) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (calculatorContent.classList.contains('active') && calculatorContent.classList.contains('show')) {
+                        setTimeout(() => {
+                            if (window.ensureCalculatorInitialized) {
+                                window.ensureCalculatorInitialized();
+                            }
+                        }, 100);
+                    }
+                }
+            });
+        });
+        
+        observer.observe(calculatorContent, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+});
+</script>
