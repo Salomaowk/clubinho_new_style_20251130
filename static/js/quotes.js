@@ -184,20 +184,14 @@ class QuotesManager {
             const data = await response.json();
             
             if (data.success) {
-                this.showSuccess(`Quote approved successfully! Order #${data.order_id} created.`);
+                this.showSuccess(`Quote approved successfully! Order #${data.order_id} created. Redirecting to orders...`);
                 this.loadQuotes(); // Refresh the quotes list
-                
-                // Switch to orders tab and refresh data
+
+                // Redirect to orders page with success message
                 setTimeout(() => {
-                    if (typeof switchToOrders === 'function') {
-                        switchToOrders();
-                    }
-                    // Refresh orders data after switching tabs
-                    setTimeout(() => {
-                        if (typeof window.refreshOrdersData === 'function') {
-                            window.refreshOrdersData();
-                        }
-                    }, 100);
+                    // Store order ID in sessionStorage to highlight it after page load
+                    sessionStorage.setItem('newOrderId', data.order_id);
+                    window.location.href = '/orders';
                 }, 2000);
             }
 

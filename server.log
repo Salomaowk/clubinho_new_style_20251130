@@ -1,0 +1,530 @@
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 101-478-855
+127.0.0.1 - - [07/Dec/2025 11:55:06] "GET / HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 11:55:56] "GET /create_order HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 11:55:56] "GET /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:55:56] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 11:56:29] "POST /admin/login HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 11:56:29] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:29] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:29] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:56:35] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:14] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:31] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:31] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:31] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /static/js/orders.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /static/js/quotes.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:57:33] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:57:34] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:57:34] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:09] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:11] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 11:58:13] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:13] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:58:13] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:15] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:58:30] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:59:29] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 11:59:51] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:29] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:42] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:45] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:45] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:45] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:45] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:46] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:46] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:01:46] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 12:02:01] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:02:15] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:02:41] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:25] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:25] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:25] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:25] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:26] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:26] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 12:03:26] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:38] "GET /create_order HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 12:03:38] "GET /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:44] "POST /admin/login HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 12:03:44] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:44] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:44] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /static/js/calculator.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:03:46] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:04:01] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:53:25] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 12:53:25] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:54:51] "GET /create_order HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 12:54:51] "GET /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:54:51] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Dec/2025 12:55:08] "POST /admin/login HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 12:55:08] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:08] "GET /static/css/custom.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:08] "GET /static/js/floating-tools.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /static/js/calculator.js?v=5427 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:13] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:55:37] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:58:33] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:58:33] "GET /static/js/calculator.js?v=8361 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:58:33] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:58:33] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:58:34] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:58:34] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:58:54] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:13] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:13] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:13] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /static/js/quotes.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:15] "GET /static/js/orders.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:16] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /static/js/calculator.js?v=4149 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:20] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 12:59:29] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /static/js/calculator.js?v=167 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:02] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:37] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:48] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:48] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:48] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:27:50] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /static/js/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:09] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:10] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:22] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:22] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:23] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /static/js/calculator.js?v=8744 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:32] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:33:51] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:09] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:09] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:09] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:11] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:20] "DELETE /api/quotes/277/reject HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:20] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:27] "DELETE /api/quotes/280/reject HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:27] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:30] "POST /api/quotes/279/approve HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:30] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:33] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:36] "POST /api/quotes/278/approve HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:36] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:38] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:43] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:43] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:48] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:48] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:53] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:53] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:57] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:34:57] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:22] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:22] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /static/js/quotes.js HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:35] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:38] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:49] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:49] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:52] "POST /api/quotes/276/approve HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:52] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:38:54] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /static/js/calculator.js?v=2765 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:05] "GET /api/assets HTTP/1.1" 200 -
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'Test Customer', 'book_title': 'Test Book', 'book_price': 100, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 0}
+Calculate API returning: {'success': True, 'book_price': 100.0, 'profit': 30.0, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 150.0, 'shipping_adjustment_jpy': 0.0, 'total_jpy': 4382, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+API assets called - returning 10 assets with prices
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 1234, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 122}
+Calculate API returning: {'success': True, 'book_price': 1234.0, 'profit': 370.2, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 1624.2, 'shipping_adjustment_jpy': 122.0, 'total_jpy': 47565, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 1234, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 200}
+Calculate API returning: {'success': True, 'book_price': 1234.0, 'profit': 370.2, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 1624.2, 'shipping_adjustment_jpy': 200.0, 'total_jpy': 47643, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 123, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 1233}
+Calculate API returning: {'success': True, 'book_price': 123.0, 'profit': 36.9, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 179.9, 'shipping_adjustment_jpy': 1233.0, 'total_jpy': 6488, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 25, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 123}
+Calculate API returning: {'success': True, 'book_price': 25.0, 'profit': 7.5, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 52.5, 'shipping_adjustment_jpy': 123.0, 'total_jpy': 1657, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'Test User', 'book_title': 'Test Book', 'book_price': 100, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 0}
+Calculate API returning: {'success': True, 'book_price': 100.0, 'profit': 30.0, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 150.0, 'shipping_adjustment_jpy': 0.0, 'total_jpy': 4382, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 25, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 200}
+Calculate API returning: {'success': True, 'book_price': 25.0, 'profit': 7.5, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 52.5, 'shipping_adjustment_jpy': 200.0, 'total_jpy': 1734, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'Test Customer', 'book_title': 'Test Book', 'book_price': 1234, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 0}
+Calculate API returning: {'success': True, 'book_price': 1234.0, 'profit': 370.2, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 1624.2, 'shipping_adjustment_jpy': 0.0, 'total_jpy': 47443, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 25, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 122}
+Calculate API returning: {'success': True, 'book_price': 25.0, 'profit': 7.5, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 52.5, 'shipping_adjustment_jpy': 122.0, 'total_jpy': 1656, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 25, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 200}
+Calculate API returning: {'success': True, 'book_price': 25.0, 'profit': 7.5, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 52.5, 'shipping_adjustment_jpy': 200.0, 'total_jpy': 1734, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'A Cestinha de Flores', 'book_price': 25, 'shipping_cost': 20, 'profit_percent': 30, 'shipping_adjustment_jpy': 122}
+Calculate API returning: {'success': True, 'book_price': 25.0, 'profit': 7.5, 'profit_percent': 30.0, 'shipping_cost': 20.0, 'total_brl': 52.5, 'shipping_adjustment_jpy': 122.0, 'total_jpy': 1656, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}
+API assets called - returning 10 assets with prices
+API assets called - returning 10 assets with prices
+API assets called - returning 9 assets with prices
+API assets called - returning 9 assets with prices
+API assets called - returning 9 assets with prices
+API assets called - returning 9 assets with prices
+API assets called - returning 9 assets with prices
+API assets called - returning 9 assets with prices
+Calculate API called with data: {'customer_name': 'salomao test1147', 'book_title': 'Contos Morais', 'book_price': 40.13, 'shipping_cost': 25, 'profit_percent': 30, 'shipping_adjustment_jpy': 200}
+Calculate API returning: {'success': True, 'book_price': 40.13, 'profit': 12.039, 'profit_percent': 30.0, 'shipping_cost': 25.0, 'total_brl': 77.16900000000001, 'shipping_adjustment_jpy': 200.0, 'total_jpy': 2454, 'exchange_rate': 29.21, 'rate_source': 'ExchangeRate-API'}127.0.0.1 - - [07/Dec/2025 15:39:23] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:31] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:31] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:31] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:33] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:42] "POST /api/quotes/281/approve HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:42] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:44] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:44] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:45] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /static/js/calculator.js?v=2150 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:39:56] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:01] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "POST /orders HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:10] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "POST /orders HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:15] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "POST /orders HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:18] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "POST /orders HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:21] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /static/js/calculator.js?v=1914 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:40:23] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:02] "POST /api/calculate HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:16] "POST /api/save-quote HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:16] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:16] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:18] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:22] "POST /api/quotes/282/approve HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:22] "GET /api/quotes HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:41:24] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:43:47] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:43:49] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:43:49] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:43:49] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:44:13] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:44:13] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:44:13] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:05] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:05] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:05] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /static/js/calculator.js?v=3129 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:14] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:17] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:17] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:17] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:21] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:21] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:21] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:31] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:31] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:31] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:33] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:33] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:33] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:36] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:45:36] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:45:36] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:46:25] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:46:25] "GET /static/css/custom.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:46:25] "GET /static/js/floating-tools.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:52:04] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:52:24] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:52:32] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:52:39] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:52:52] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:18] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:24] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:29] "GET /orders HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:30] "GET /static/js/orders.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:53:30] "GET /static/js/calculator.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:53:30] "GET /static/js/quotes.js HTTP/1.1" 304 -
+127.0.0.1 - - [07/Dec/2025 15:53:30] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:30] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:31] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:31] "GET /static/js/calculator.js?v=8134 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:32] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:32] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:33] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:50] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:55] "GET / HTTP/1.1" 302 -
+127.0.0.1 - - [07/Dec/2025 15:53:56] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:53:58] "GET /books HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:00] "GET /create_order HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:00] "GET /static/js/calculator.js?v=4782 HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:00] "GET /api/customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:00] "GET /api/assets HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:04] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:05] "GET /customers HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2025 15:54:16] "GET /dashboard HTTP/1.1" 200 -
+/Users/salomao.a.kawakami/.pyenv/versions/3.12.9/lib/python3.12/multiprocessing/resource_tracker.py:255: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/Users/salomao.a.kawakami/.pyenv/versions/3.12.9/lib/python3.12/multiprocessing/resource_tracker.py:255: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

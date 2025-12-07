@@ -1,0 +1,443 @@
+/**
+ * Custom CSS for Clubinho Bookstore
+ * Default Dark Theme - Simplified with Tailwind CSS
+ */
+
+/* ============ ROOT VARIABLES ============ */
+:root {
+    /* Colors */
+    --primary: #FF9500;
+    --primary-light: #FFA726;
+    --primary-dark: #FF7500;
+    --secondary: #a78bfa;
+    --secondary-light: #c4b5fd;
+    --secondary-dark: #8b5cf6;
+
+    /* Background Colors */
+    --bg-primary: #525252;
+    --bg-card: #3F3F3F;
+    --bg-hover: #4A4A4A;
+
+    /* Text Colors */
+    --text-primary: #FFFFFF;
+    --text-secondary: #B8B8B8;
+
+    /* Borders */
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-medium: rgba(255, 255, 255, 0.2);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #FF9500 0%, #FF7500 100%);
+    --gradient-secondary: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+}
+
+/* ============ FLOATING TOOLS MENU ============ */
+.floating-tool-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+}
+
+.floating-tool-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+    background: var(--gradient-primary);
+}
+
+.floating-tool-btn.active {
+    background: var(--gradient-primary);
+    box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.3);
+}
+
+.floating-tool-btn i {
+    pointer-events: none;
+}
+
+/* Tooltip effect */
+.floating-tool-btn::before {
+    content: attr(title);
+    position: absolute;
+    right: 70px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+}
+
+.floating-tool-btn:hover::before {
+    opacity: 1;
+}
+
+/* Hide tooltip for menu toggle button */
+#menuToggle::before {
+    display: none;
+}
+
+/* Menu expansion animations */
+#menuItems {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#menuItems.menu-expanded .menu-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger animation for menu items */
+#menuItems.menu-expanded .menu-item:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+#menuItems.menu-expanded .menu-item:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+#menuItems.menu-expanded .menu-item:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+#menuItems.menu-expanded .menu-item:nth-child(4) {
+    transition-delay: 0.2s;
+}
+
+#menuItems.menu-expanded .menu-item:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+#menuItems.menu-expanded .menu-item:nth-child(6) {
+    transition-delay: 0.3s;
+}
+
+/* Toggle icon animation */
+#toggleIcon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop - always show menu */
+@media (min-width: 768px) {
+    #menuToggle {
+        display: none !important;
+    }
+
+    #menuItems {
+        display: flex !important;
+    }
+
+    .menu-item {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+}
+
+/* ============ SMOOTH TRANSITIONS ============ */
+* {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* ============ SCROLLBAR STYLING ============ */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-card);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-hover);
+}
+
+/* ============ BUTTON STYLES ============ */
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 149, 0, 0.4), var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: var(--gradient-secondary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(167, 139, 250, 0.4), var(--shadow-lg);
+}
+
+/* Action Buttons */
+.btn-action {
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.4), var(--shadow-lg);
+}
+
+/* ============ CARD STYLES ============ */
+.card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15), var(--shadow-lg);
+    border-color: rgba(255, 149, 0, 0.5);
+}
+
+/* Stat Card Glow Effect */
+.stat-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.4s ease-out;
+}
+
+/* ============ FORM STYLES ============ */
+input,
+select,
+textarea {
+    background: var(--bg-card);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.1);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+/* ============ TABLE STYLES ============ */
+table {
+    width: 100%;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, rgba(255, 149, 0, 0.2) 0%, rgba(167, 139, 250, 0.2) 100%);
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+tbody tr {
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+tr:hover {
+    background: var(--bg-hover);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transform: scale(1.01);
+    border-left-color: rgba(255, 149, 0, 0.7);
+}
+
+/* ============ MODAL STYLES ============ */
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    color: var(--text-primary);
+}
+
+.modal-header {
+    background: var(--gradient-primary);
+    color: white;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-light);
+}
+
+/* ============ BADGE STYLES ============ */
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.badge-success {
+    background: #10b981;
+    color: white;
+}
+
+.badge-success:hover {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+.badge-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.badge-warning:hover {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.badge-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.badge-danger:hover {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+.badge-info {
+    background: #3b82f6;
+    color: white;
+}
+
+.badge-info:hover {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* ============ UTILITIES ============ */
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.text-secondary {
+    color: var(--secondary) !important;
+}
+
+.bg-card {
+    background: var(--bg-card) !important;
+}
+
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}

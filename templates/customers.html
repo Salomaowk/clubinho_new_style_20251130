@@ -5,38 +5,34 @@
 {% block header_title %}Customers{% endblock %}
 {% block header_subtitle %}Manage customer information{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/page-enhancements.css') }}">
-{% endblock %}
-
 {% block content %}
 <!-- Page Header -->
-<div class="page-header">
-    <h2 class="page-title">
-        <i class="fas fa-users me-2" aria-hidden="true"></i>Customer Management
+<div class="flex justify-between items-center mb-6 px-6 py-4">
+    <h2 class="text-2xl font-bold text-gray-100 flex items-center">
+        <i class="fas fa-users mr-3" aria-hidden="true"></i>Customer Management
     </h2>
-    <button class="btn-add"
+    <button class="btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#addCustomerModal"
             aria-label="Add new customer">
-        <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Customer
+        <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Customer
     </button>
 </div>
 
-<!-- Search Section - Using action-section like Orders page -->
-<div class="action-section">
-    <div class="row g-2 align-items-center mb-3">
-        <div class="col-md-8">
+<!-- Search Section -->
+<div class="px-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 mb-4">
+        <div class="md:col-span-8">
             <label for="customerSearch" class="sr-only">Search customers</label>
             <input type="text"
                    id="customerSearch"
-                   class="form-control search-input"
+                   class="form-input w-full"
                    placeholder="Search customers by name, address, or phone..."
                    aria-label="Search customers by name, address, or phone">
         </div>
-        <div class="col-md-4">
+        <div class="md:col-span-4">
             <label for="sortSelect" class="sr-only">Sort customers</label>
-            <select class="form-select" id="sortSelect" aria-label="Sort customers by criteria">
+            <select class="form-select w-full" id="sortSelect" aria-label="Sort customers by criteria">
                 <option value="name">Sort by Name</option>
                 <option value="orders">Sort by Orders</option>
                 <option value="spent">Sort by Total Spent</option>
@@ -46,7 +42,7 @@
     </div>
 
     <!-- Filter Chips -->
-    <div class="filter-chips" role="group" aria-label="Filter customers by status">
+    <div class="flex flex-wrap gap-2" role="group" aria-label="Filter customers by status">
         <button class="filter-chip active" data-filter="all" type="button">
             <i class="fas fa-users"></i> All
         </button>
@@ -63,11 +59,11 @@
 </div>
 
 <!-- Customers List -->
-<div class="page-container">
+<div class="px-6 pb-6">
     {% if customers %}
-        <div id="customerList">
+        <div id="customerList" class="space-y-4">
             {% for customer in customers %}
-                <div class="item-card customer-item"
+                <div class="card customer-item"
                      data-name="{{ customer.customer_name|lower }}"
                      data-address="{{ (customer.customer_address or '')|lower }}"
                      data-phone="{{ (customer.customer_telephone or '')|lower }}"
@@ -76,60 +72,63 @@
                      data-recent="{{ customer.last_order or '1900-01-01' }}"
                      data-status="{% if customer.total_spent > 5000 %}vip{% elif customer.total_orders == 0 %}new{% elif customer.last_order and (now() - customer.last_order).days > 90 %}inactive{% else %}regular{% endif %}">
 
-                    <div class="item-header">
-                        <!-- Customer Avatar -->
-                        <div class="customer-avatar" aria-hidden="true">
-                            {{ customer.customer_name[:2] }}
-                        </div>
+                    <div class="flex items-start justify-between mb-4">
+                        <!-- Customer Avatar & Info -->
+                        <div class="flex items-start space-x-4 flex-1">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold text-lg flex-shrink-0" aria-hidden="true">
+                                {{ customer.customer_name[:2] }}
+                            </div>
 
-                        <div class="item-info">
-                            <h5 class="item-name">
-                                {{ customer.customer_name }}
+                            <div class="flex-1 min-w-0">
+                                <h5 class="text-lg font-semibold text-gray-100 mb-1 flex items-center flex-wrap gap-2">
+                                    {{ customer.customer_name }}
 
-                                <!-- Status Badges -->
-                                {% if customer.total_spent > 5000 %}
-                                    <span class="badge badge-vip">
-                                        <i class="fas fa-crown"></i> VIP
-                                    </span>
-                                {% elif customer.total_orders == 0 %}
-                                    <span class="badge badge-new">
-                                        <i class="fas fa-star"></i> New
-                                    </span>
-                                {% elif customer.last_order and (now() - customer.last_order).days > 90 %}
-                                    <span class="badge badge-inactive">
-                                        <i class="fas fa-user-slash"></i> Inactive
-                                    </span>
-                                {% endif %}
-                            </h5>
-                            <div class="item-details">
-                                {% if customer.customer_address %}
-                                    <div><i class="fas fa-map-marker-alt"></i>{{ customer.customer_address }}</div>
-                                {% endif %}
-                                {% if customer.customer_telephone %}
-                                    <div><i class="fas fa-phone"></i>{{ customer.customer_telephone }}</div>
-                                {% endif %}
-                                {% if customer.customer_delivery_time_request %}
-                                    <div><i class="fas fa-clock"></i>{{ customer.customer_delivery_time_request }}</div>
-                                {% endif %}
-                                <div><i class="fas fa-calendar-plus"></i>Added: {{ customer.created_at.strftime('%m/%d/%Y') if customer.created_at else 'N/A' }}</div>
+                                    <!-- Status Badges -->
+                                    {% if customer.total_spent > 5000 %}
+                                        <span class="badge badge-vip">
+                                            <i class="fas fa-crown"></i> VIP
+                                        </span>
+                                    {% elif customer.total_orders == 0 %}
+                                        <span class="badge badge-new">
+                                            <i class="fas fa-star"></i> New
+                                        </span>
+                                    {% elif customer.last_order and (now() - customer.last_order).days > 90 %}
+                                        <span class="badge badge-inactive">
+                                            <i class="fas fa-user-slash"></i> Inactive
+                                        </span>
+                                    {% endif %}
+                                </h5>
+                                <div class="text-sm text-gray-400 space-y-1">
+                                    {% if customer.customer_address %}
+                                        <div class="flex items-center"><i class="fas fa-map-marker-alt w-4 mr-2"></i>{{ customer.customer_address }}</div>
+                                    {% endif %}
+                                    {% if customer.customer_telephone %}
+                                        <div class="flex items-center"><i class="fas fa-phone w-4 mr-2"></i>{{ customer.customer_telephone }}</div>
+                                    {% endif %}
+                                    {% if customer.customer_delivery_time_request %}
+                                        <div class="flex items-center"><i class="fas fa-clock w-4 mr-2"></i>{{ customer.customer_delivery_time_request }}</div>
+                                    {% endif %}
+                                    <div class="flex items-center"><i class="fas fa-calendar-plus w-4 mr-2"></i>Added: {{ customer.created_at.strftime('%m/%d/%Y') if customer.created_at else 'N/A' }}</div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="item-actions">
-                                <!-- Print Button -->
-                            <button class="btn-action btn-print"
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center space-x-2 ml-4">
+                            <!-- Print Button -->
+                            <button class="btn-action btn-secondary"
                                     onclick="printCustomerLabel(this)"
                                     data-id="{{ customer.customer_id }}"
                                     data-name="{{ customer.customer_name }}"
                                     data-address="{{ customer.customer_address or '' }}"
                                     data-telephone="{{ customer.customer_telephone or '' }}"
                                     aria-label="Print label for {{ customer.customer_name }}"
-                                    title="Print label for {{ customer.customer_name }}">
+                                    title="Print label">
                                 <i class="fas fa-print" aria-hidden="true"></i>
                             </button>
 
                             <!-- Edit Button -->
-                            <button class="btn-action btn-edit"
+                            <button class="btn-action btn-primary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#editCustomerModal"
                                     data-id="{{ customer.customer_id }}"
@@ -138,66 +137,66 @@
                                     data-telephone="{{ customer.customer_telephone or '' }}"
                                     data-delivery-time="{{ customer.customer_delivery_time_request or '' }}"
                                     aria-label="Edit {{ customer.customer_name }}"
-                                    title="Edit {{ customer.customer_name }}">
+                                    title="Edit">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
                             </button>
 
                             <!-- Delete Button -->
-                            <button class="btn-action btn-delete"
+                            <button class="btn-action btn-danger"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteCustomerModal"
                                     data-id="{{ customer.customer_id }}"
                                     data-name="{{ customer.customer_name }}"
                                     data-orders="{{ customer.total_orders }}"
                                     aria-label="Delete {{ customer.customer_name }}"
-                                    title="Delete {{ customer.customer_name }}">
+                                    title="Delete">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Customer Statistics - Enhanced with Icons -->
-                    <div class="item-stats">
-                        <!-- ORDERS - Clickable stat that goes to all orders -->
+
+                    <!-- Customer Statistics -->
+                    <div class="grid grid-cols-3 gap-3 pt-4 border-t border-gray-700">
+                        <!-- ORDERS - Clickable stat -->
                         {% if customer.total_orders > 0 %}
                             <a href="{{ url_for('customer_orders', customer_name=customer.customer_name) }}"
-                               class="stat-item stat-link stat-item-with-icon"
+                               class="stat-card stat-link"
                                title="View all orders for {{ customer.customer_name }}">
-                                <i class="fas fa-shopping-bag stat-icon text-success-custom" aria-hidden="true"></i>
-                                <div class="stat-value stat-value-gradient">{{ customer.total_orders }}</div>
-                                <div class="stat-label">Orders</div>
+                                <i class="fas fa-shopping-bag text-green-400 text-2xl mb-2" aria-hidden="true"></i>
+                                <div class="text-2xl font-bold text-gray-100">{{ customer.total_orders }}</div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wide">Orders</div>
                             </a>
                         {% else %}
-                            <div class="stat-item stat-item-with-icon">
-                                <i class="fas fa-shopping-bag stat-icon text-muted" aria-hidden="true"></i>
-                                <div class="stat-value text-muted">{{ customer.total_orders }}</div>
-                                <div class="stat-label">Orders</div>
+                            <div class="stat-card opacity-50">
+                                <i class="fas fa-shopping-bag text-gray-500 text-2xl mb-2" aria-hidden="true"></i>
+                                <div class="text-2xl font-bold text-gray-400">{{ customer.total_orders }}</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wide">Orders</div>
                             </div>
                         {% endif %}
 
-                        <!-- TOTAL SPENT - Now clickable link to customer account -->
+                        <!-- TOTAL SPENT - Clickable link to customer account -->
                         <a href="{{ url_for('customer_account', customer_name=customer.customer_name) }}"
-                           class="stat-item stat-link stat-item-with-icon"
+                           class="stat-card stat-link"
                            title="View account details for {{ customer.customer_name }}">
-                            <i class="fas fa-yen-sign stat-icon text-primary-custom" aria-hidden="true"></i>
-                            <div class="stat-value stat-value-gradient">¥{{ "{:,.0f}".format(customer.total_spent) }}</div>
-                            <div class="stat-label">Total Spent</div>
+                            <i class="fas fa-yen-sign text-primary text-2xl mb-2" aria-hidden="true"></i>
+                            <div class="text-2xl font-bold text-gray-100">¥{{ "{:,.0f}".format(customer.total_spent) }}</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wide">Total Spent</div>
                         </a>
 
-                        <!-- LAST ORDER - Clickable stat that goes to last order -->
+                        <!-- LAST ORDER - Clickable stat -->
                         {% if customer.last_order %}
                             <a href="{{ url_for('customer_last_order', customer_name=customer.customer_name) }}"
-                               class="stat-item stat-link stat-item-with-icon"
+                               class="stat-card stat-link"
                                title="View last order for {{ customer.customer_name }}">
-                                <i class="fas fa-calendar-check stat-icon text-info-custom" aria-hidden="true"></i>
-                                <div class="stat-value stat-value-gradient">{{ customer.last_order.strftime('%m/%d') }}</div>
-                                <div class="stat-label">Last Order</div>
+                                <i class="fas fa-calendar-check text-blue-400 text-2xl mb-2" aria-hidden="true"></i>
+                                <div class="text-2xl font-bold text-gray-100">{{ customer.last_order.strftime('%m/%d') }}</div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wide">Last Order</div>
                             </a>
                         {% else %}
-                            <div class="stat-item stat-item-with-icon">
-                                <i class="fas fa-calendar-times stat-icon text-muted" aria-hidden="true"></i>
-                                <div class="stat-value text-muted">Never</div>
-                                <div class="stat-label">Last Order</div>
+                            <div class="stat-card opacity-50">
+                                <i class="fas fa-calendar-times text-gray-500 text-2xl mb-2" aria-hidden="true"></i>
+                                <div class="text-2xl font-bold text-gray-400">Never</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wide">Last Order</div>
                             </div>
                         {% endif %}
                     </div>
@@ -206,11 +205,11 @@
         </div>
     {% else %}
         <div class="empty-state">
-            <i class="fas fa-users"></i>
-            <h3>No Customers Yet</h3>
-            <p>Add your first customer to get started!</p>
-            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-                <i class="fas fa-plus me-2"></i>Add First Customer
+            <i class="fas fa-users text-6xl mb-4 text-gray-600"></i>
+            <h3 class="text-xl font-semibold text-gray-300 mb-2">No Customers Yet</h3>
+            <p class="text-gray-400 mb-4">Add your first customer to get started!</p>
+            <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <i class="fas fa-plus mr-2"></i>Add First Customer
             </button>
         </div>
     {% endif %}
@@ -222,7 +221,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addCustomerModalLabel">
-                    <i class="fas fa-user-plus me-2" aria-hidden="true"></i>Add New Customer
+                    <i class="fas fa-user-plus mr-2" aria-hidden="true"></i>Add New Customer
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
             </div>
@@ -233,7 +232,7 @@
                         <label for="add_customer_name" class="form-label">Customer Name *</label>
                         <input type="text"
                                id="add_customer_name"
-                               class="form-control"
+                               class="form-input"
                                name="customer_name"
                                required
                                aria-required="true">
@@ -241,7 +240,7 @@
                     <div class="form-group">
                         <label for="add_customer_address" class="form-label">Address</label>
                         <textarea id="add_customer_address"
-                                  class="form-control"
+                                  class="form-input"
                                   name="customer_address"
                                   rows="2"
                                   aria-label="Customer address"></textarea>
@@ -250,7 +249,7 @@
                         <label for="add_customer_telephone" class="form-label">Telephone</label>
                         <input type="text"
                                id="add_customer_telephone"
-                               class="form-control"
+                               class="form-input"
                                name="customer_telephone"
                                aria-label="Customer telephone number">
                     </div>
@@ -258,15 +257,15 @@
                         <label for="add_customer_delivery_time" class="form-label">Delivery Time Request</label>
                         <input type="text"
                                id="add_customer_delivery_time"
-                               class="form-control"
+                               class="form-input"
                                name="customer_delivery_time_request"
                                placeholder="e.g., Weekdays after 6PM"
                                aria-label="Preferred delivery time">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Customer</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Customer</button>
                 </div>
             </form>
         </div>
@@ -279,7 +278,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editCustomerModalLabel">
-                    <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Edit Customer
+                    <i class="fas fa-user-edit mr-2" aria-hidden="true"></i>Edit Customer
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
             </div>
@@ -289,24 +288,24 @@
                     <input type="hidden" name="customer_id" id="edit_customer_id">
                     <div class="form-group">
                         <label class="form-label">Customer Name *</label>
-                        <input type="text" class="form-control" name="customer_name" id="edit_customer_name" required>
+                        <input type="text" class="form-input" name="customer_name" id="edit_customer_name" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Address</label>
-                        <textarea class="form-control" name="customer_address" id="edit_customer_address" rows="2"></textarea>
+                        <textarea class="form-input" name="customer_address" id="edit_customer_address" rows="2"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Telephone</label>
-                        <input type="text" class="form-control" name="customer_telephone" id="edit_customer_telephone">
+                        <input type="text" class="form-input" name="customer_telephone" id="edit_customer_telephone">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Delivery Time Request</label>
-                        <input type="text" class="form-control" name="customer_delivery_time_request" id="edit_customer_delivery_time">
+                        <input type="text" class="form-input" name="customer_delivery_time_request" id="edit_customer_delivery_time">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Update Customer</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-warning">Update Customer</button>
                 </div>
             </form>
         </div>
@@ -317,9 +316,9 @@
 <div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-danger" id="deleteCustomerModalLabel">
-                    <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>Delete Customer
+            <div class="modal-header-danger">
+                <h5 class="modal-title" id="deleteCustomerModalLabel">
+                    <i class="fas fa-exclamation-triangle mr-2" aria-hidden="true"></i>Delete Customer
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
             </div>
@@ -330,54 +329,20 @@
                     <div class="alert alert-warning">
                         <strong>Warning!</strong> This action cannot be undone.
                     </div>
-                    <p>Are you sure you want to delete customer <strong id="delete_customer_name"></strong>?</p>
+                    <p class="text-gray-300">Are you sure you want to delete customer <strong id="delete_customer_name"></strong>?</p>
                     <div id="delete_warning" class="alert alert-danger" style="display: none;">
-                        <strong>Cannot delete!</strong> This customer has <span id="delete_order_count"></span> existing order(s). 
+                        <strong>Cannot delete!</strong> This customer has <span id="delete_order_count"></span> existing order(s).
                         Please delete their orders first.
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Delete Customer</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-danger" id="confirmDeleteBtn">Delete Customer</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<!-- Add this CSS for the clickable stats -->
-<style>
-.stat-link {
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease;
-}
-
-.stat-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-decoration: none;
-    color: inherit;
-}
-
-.stat-link .stat-value {
-    transition: color 0.2s ease;
-}
-
-.stat-link:hover .stat-value {
-    color: #FF9D8A !important;
-}
-
-.btn-print {
-    background-color: rgba(108, 117, 125, 0.1);
-    color: #6c757d;
-}
-
-.btn-print:hover {
-    background-color: #6c757d;
-    color: white;
-}
-</style>
 {% endblock %}
 
 {% block scripts %}
@@ -420,7 +385,7 @@
         const sortBy = this.value;
         const container = document.getElementById('customerList');
         const customers = Array.from(document.querySelectorAll('.customer-item'));
-        
+
         customers.sort((a, b) => {
             switch(sortBy) {
                 case 'name':
@@ -435,7 +400,7 @@
                     return 0;
             }
         });
-        
+
         customers.forEach(customer => container.appendChild(customer));
     });
 
@@ -457,7 +422,7 @@
             document.getElementById('delete_customer_id').value = this.dataset.id;
             document.getElementById('delete_customer_name').textContent = this.dataset.name;
             document.getElementById('delete_order_count').textContent = orderCount;
-            
+
             if (orderCount > 0) {
                 document.getElementById('delete_warning').style.display = 'block';
                 document.getElementById('confirmDeleteBtn').disabled = true;
@@ -488,13 +453,13 @@
             address: button.dataset.address,
             telephone: button.dataset.telephone
         };
-        
+
         // Create form and submit to print route
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = '/print-customer-label';
         form.target = '_blank'; // Open in new tab
-        
+
         // Add customer data as hidden inputs
         Object.keys(customerData).forEach(key => {
             const input = document.createElement('input');
@@ -503,7 +468,7 @@
             input.value = customerData[key];
             form.appendChild(input);
         });
-        
+
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);

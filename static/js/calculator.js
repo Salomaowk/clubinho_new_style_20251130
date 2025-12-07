@@ -46,7 +46,9 @@ class Calculator {
 
     isCalculatorTabActive() {
         const calculatorTab = document.getElementById('calculator-tab');
-        return calculatorTab && calculatorTab.classList.contains('active');
+        // If no tab exists (standalone page), return true
+        if (!calculatorTab) return true;
+        return calculatorTab.classList.contains('active');
     }
 
     setupTabSwitching() {
@@ -62,10 +64,16 @@ class Calculator {
 
     initializeCalculator() {
         console.log('🔧 Initializing calculator components...');
-        
+
         const calculatorContent = document.getElementById('calculator-content');
-        if (!calculatorContent || !calculatorContent.classList.contains('active')) {
-            console.log('Calculator tab not active, skipping initialization');
+        const calculatorForm = document.getElementById('calculatorForm');
+
+        // Check if we're on a standalone calculator page (no tabs) OR if tab is active
+        const isStandalonePage = !calculatorContent && calculatorForm;
+        const isTabActive = calculatorContent && calculatorContent.classList.contains('active');
+
+        if (!isStandalonePage && !isTabActive) {
+            console.log('Calculator tab not active and not standalone page, skipping initialization');
             return;
         }
 
@@ -73,7 +81,7 @@ class Calculator {
         this.setupCalculatorEventListeners();
         this.populateShippingDropdown();
         this.validateForm();
-        
+
         console.log('✅ Calculator components initialized');
     }
 
@@ -646,13 +654,13 @@ class Calculator {
             </div>
             <div class="result-item">
                 <span class="result-label">Final Total (JPY):</span>
-                <div class="copy-container">
+                <div class="copy-container flex gap-3 items-center">
                     <span class="result-value">¥${result.total_jpy.toLocaleString()}</span>
-                    <button class="btn-copy" onclick="calculator.copyToClipboard()">
-                        <i class="fas fa-copy me-1"></i>Copy
+                    <button class="px-4 py-2 bg-background-hover border-2 border-white/20 text-white font-semibold rounded-lg hover:border-primary/50 hover:bg-background-card transition-all duration-200" onclick="calculator.copyToClipboard()">
+                        <i class="fas fa-copy mr-2"></i>Copy
                     </button>
-                    <button class="btn-approve" onclick="calculator.approveQuote()">
-                        <i class="fas fa-check me-1"></i>Create Quote
+                    <button class="px-6 py-2 bg-gradient-to-r from-primary to-primary-dark text-white font-bold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200" onclick="calculator.showApprovalModal()">
+                        <i class="fas fa-check mr-2"></i>Review & Approve
                     </button>
                 </div>
             </div>
@@ -752,17 +760,24 @@ class Calculator {
         }
     }
 
-    async approveQuote() {
-        console.log('✅ Creating quote...');
-        
+    showApprovalModal() {
+        console.log('📋 Showing approval modal...');
+
+        // Check if Bootstrap is available
+        if (typeof bootstrap === 'undefined') {
+            console.error('❌ Bootstrap is not loaded!');
+            this.showError('Modal system not available. Please refresh the page.');
+            return;
+        }
+
         if (!this.currentResult) {
-            this.showError('No calculation to save');
+            this.showError('No calculation to review');
             return;
         }
 
         const customerNameElement = document.getElementById('customer-name');
         const bookTitleElement = document.getElementById('book-title');
-        
+
         const customerName = customerNameElement?.value || '';
         const bookTitle = bookTitleElement?.value || '';
 
@@ -771,16 +786,63 @@ class Calculator {
             return;
         }
 
-        try {
-            // Show loading state
-            const approveBtn = document.querySelector('.btn-approve');
-            if (approveBtn) {
-                const originalText = approveBtn.innerHTML;
-                approveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Creating Quote...';
-                approveBtn.disabled = true;
-            }
+        // Check if modal element exists
+        const modalElement = document.getElementById('quoteApprovalModal');
+        if (!modalElement) {
+            console.error('❌ Modal element not found!');
+            this.showError('Modal not found. Please refresh the page.');
+            return;
+        }
 
-            console.log('📡 Sending quote creation request...');
+        console.log('✅ Modal element found, populating data...');
+
+        // Populate modal with current result data
+        document.getElementById('modal-customer-name').textContent = customerName;
+        document.getElementById('modal-book-title').textContent = bookTitle;
+        document.getElementById('modal-book-price').textContent = `R$ ${this.currentResult.book_price.toFixed(2)}`;
+        document.getElementById('modal-profit').textContent = `R$ ${this.currentResult.profit.toFixed(2)} (${this.currentResult.profit_percent}%)`;
+        document.getElementById('modal-shipping').textContent = `R$ ${this.currentResult.shipping_cost.toFixed(2)}`;
+        document.getElementById('modal-total-brl').textContent = `R$ ${this.currentResult.total_brl.toFixed(2)}`;
+        document.getElementById('modal-shipping-adj').textContent = `¥${this.currentResult.shipping_adjustment_jpy}`;
+        document.getElementById('modal-total-jpy').textContent = `¥${this.currentResult.total_jpy.toLocaleString()}`;
+        document.getElementById('modal-exchange-rate').textContent = `1 BRL = ${this.currentResult.exchange_rate} JPY (${this.currentResult.rate_source})`;
+
+        console.log('✅ Modal data populated, creating modal instance...');
+
+        // Show the modal
+        const modal = new bootstrap.Modal(modalElement);
+        console.log('✅ Modal instance created, showing modal...');
+        modal.show();
+
+        // Set up the confirm button handler
+        const confirmBtn = document.getElementById('confirm-approve-quote');
+        if (!confirmBtn) {
+            console.error('❌ Confirm button not found!');
+            return;
+        }
+
+        const newConfirmBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+        newConfirmBtn.addEventListener('click', () => {
+            console.log('✅ Approve button clicked, hiding modal and saving...');
+            modal.hide();
+            this.saveQuote(customerName, bookTitle);
+        });
+
+        console.log('✅ Approval modal shown and event handler attached');
+    }
+
+    async saveQuote(customerName, bookTitle) {
+        console.log('✅ Saving quote...');
+
+        if (!this.currentResult) {
+            this.showError('No calculation to save');
+            return;
+        }
+
+        try {
+            console.log('📡 Sending quote save request...');
 
             const response = await fetch('/api/save-quote', {
                 method: 'POST',
@@ -802,39 +864,32 @@ class Calculator {
                 })
             });
 
-            console.log('📡 Quote creation response status:', response.status);
+            console.log('📡 Quote save response status:', response.status);
 
             const data = await response.json();
-            console.log('📊 Quote creation response data:', data);
-            
+            console.log('📊 Quote save response data:', data);
+
             if (data.success) {
-                this.showSuccess('Quote created successfully! Quote ID: ' + data.quote_id);
+                this.showSuccess('Quote saved successfully! It will appear in the Quotes section for final approval. Quote ID: ' + data.quote_id);
                 this.clearForm();
-                
+
                 // Refresh customers and assets lists
                 await this.loadData();
                 this.initializeComboboxes();
-                
-                console.log('✅ Quote created successfully');
-                
-                // Switch to quotes tab if function exists
-                if (typeof switchToQuotes === 'function') {
-                    setTimeout(() => switchToQuotes(), 2000);
-                }
+
+                console.log('✅ Quote saved successfully');
+
+                // Navigate to orders page quotes tab after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/orders#quotes';
+                }, 2000);
             } else {
-                console.error('❌ Failed to create quote:', data.error);
-                this.showError(data.error || 'Failed to create quote');
+                console.error('❌ Failed to save quote:', data.error);
+                this.showError(data.error || 'Failed to save quote');
             }
         } catch (error) {
             console.error('❌ Save quote error:', error);
             this.showError('Network error occurred: ' + error.message);
-        } finally {
-            // Restore button state
-            const approveBtn = document.querySelector('.btn-approve');
-            if (approveBtn) {
-                approveBtn.innerHTML = '<i class="fas fa-check me-1"></i>Create Quote';
-                approveBtn.disabled = false;
-            }
         }
     }
 

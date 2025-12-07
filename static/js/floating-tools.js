@@ -239,8 +239,8 @@ class FloatingToolsMenu {
                 calculatorSection.style.boxShadow = '';
             }, 1000);
         } else {
-            // Navigate to orders page which has calculator
-            this.navigateTo('/orders');
+            // Navigate to create order page (where calculator is located)
+            this.navigateTo('/create_order');
         }
     }
 
@@ -257,12 +257,10 @@ class FloatingToolsMenu {
     }
 
     /**
-     * Toggle theme (delegated to theme-toggle.js)
+     * Toggle theme - No longer needed (default dark theme only)
      */
     toggleTheme() {
-        if (window.themeToggle && typeof window.themeToggle.toggle === 'function') {
-            window.themeToggle.toggle();
-        }
+        console.log('Theme toggle disabled - using default dark theme only');
     }
 
     /**

@@ -4,36 +4,30 @@
 {% block header_title %}Assets{% endblock %}
 {% block header_subtitle %}Manage book inventory{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/page-enhancements.css') }}">
-{% endblock %}
-
 {% block content %}
-<div class="page-container">
+<div class="px-6">
     <!-- Page Header -->
-    <div class="page-header">
-        <h2 class="page-title">
-            <i class="fas fa-book me-2" aria-hidden="true"></i>
-            Asset Management
+    <div class="flex justify-between items-center mb-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-100 flex items-center">
+            <i class="fas fa-book mr-3" aria-hidden="true"></i>Asset Management
         </h2>
         <button type="button"
-                class="btn-add"
+                class="btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#addBookModal"
                 aria-label="Add new asset">
-            <i class="fas fa-plus me-1" aria-hidden="true"></i>
-            Add Asset
+            <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Asset
         </button>
     </div>
 
-    <!-- Search Section - Using action-section like Orders and Customers pages -->
-    <div class="action-section">
-        <div class="row g-2">
-            <div class="col-12">
+    <!-- Search Section -->
+    <div class="mb-6">
+        <div class="grid grid-cols-1 gap-3">
+            <div>
                 <label for="searchInput" class="sr-only">Search assets by name</label>
                 <input type="text"
                        id="searchInput"
-                       class="form-control search-input"
+                       class="form-input w-full"
                        placeholder="Search assets by name..."
                        aria-label="Search assets by name">
             </div>
@@ -41,66 +35,72 @@
     </div>
 
     <!-- Books List - Table Style -->
-    <div id="booksList" class="books-table-container">
+    <div id="booksList" class="mb-6">
         {% if books %}
-            <div class="table-responsive">
-                <table class="books-table">
+            <div class="overflow-x-auto rounded-lg">
+                <table class="w-full">
                     <thead>
-                        <tr>
-                            <th>Asset Name</th>
-                            <th>R$ Price</th>
-                            <th>¥ Price</th>
-                            <th>Times Sold</th>
-                            <th>Total Revenue</th>
-                            <th>Added</th>
-                            <th>Actions</th>
+                        <tr class="bg-gray-800/50 border-b border-gray-700">
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Asset Name</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">R$ Price</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">¥ Price</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">Times Sold</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Total Revenue</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Added</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-700/50">
                         {% for book in books %}
-                        <tr class="book-item" data-search="{{ book.asset_name|lower }}">
-                            <td class="cell-name">
-                                <span class="asset-name">{{ book.asset_name }}</span>
-                                {% if book.times_sold and book.times_sold > 10 %}
-                                    <span class="stock-badge stock-bestseller">
-                                        <i class="fas fa-fire"></i> Best Seller
-                                    </span>
-                                {% elif book.ienes and book.ienes > 0 %}
-                                    <span class="stock-badge stock-in-stock">
-                                        <i class="fas fa-check-circle"></i> In Stock
-                                    </span>
-                                {% endif %}
+                        <tr class="book-item bg-gray-800/30 hover:bg-gray-700/50 transition-colors duration-200" data-search="{{ book.asset_name|lower }}">
+                            <td class="px-4 py-4">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-100 font-medium">{{ book.asset_name }}</span>
+                                    <div class="flex flex-wrap gap-1 mt-1">
+                                        {% if book.times_sold and book.times_sold > 10 %}
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30">
+                                                <i class="fas fa-fire mr-1"></i> Best Seller
+                                            </span>
+                                        {% elif book.ienes and book.ienes > 0 %}
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+                                                <i class="fas fa-check-circle mr-1"></i> In Stock
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </td>
-                            <td class="cell-price">R$ {{ "{:.2f}".format(book.real) }}</td>
-                            <td class="cell-price">¥ {{ book.ienes }}</td>
-                            <td class="cell-center">{{ book.times_sold }}</td>
-                            <td class="cell-revenue">¥ {{ "{:,.0f}".format(book.total_revenue) }}</td>
-                            <td class="cell-date">{{ book.created_at.strftime('%m/%d/%Y') if book.created_at else 'N/A' }}</td>
-                            <td class="cell-actions">
-                                <button type="button"
-                                        class="btn-action btn-edit"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editBookModal"
-                                        data-code="{{ book.asset_code }}"
-                                        data-name="{{ book.asset_name }}"
-                                        data-real="{{ book.real }}"
-                                        data-ienes="{{ book.ienes }}"
-                                        data-black="{{ book.black }}"
-                                        data-private="{{ book.private }}"
-                                        aria-label="Edit {{ book.asset_name }}"
-                                        title="Edit">
-                                    <i class="fas fa-edit" aria-hidden="true"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn-action btn-delete"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#deleteBookModal"
-                                        data-code="{{ book.asset_code }}"
-                                        data-name="{{ book.asset_name }}"
-                                        aria-label="Delete {{ book.asset_name }}"
-                                        title="Delete">
-                                    <i class="fas fa-trash" aria-hidden="true"></i>
-                                </button>
+                            <td class="px-4 py-4 text-gray-300 font-mono">R$ {{ "{:.2f}".format(book.real) }}</td>
+                            <td class="px-4 py-4 text-gray-300 font-mono">¥ {{ book.ienes }}</td>
+                            <td class="px-4 py-4 text-center text-gray-300">{{ book.times_sold }}</td>
+                            <td class="px-4 py-4 text-gray-100 font-semibold font-mono">¥ {{ "{:,.0f}".format(book.total_revenue) }}</td>
+                            <td class="px-4 py-4 text-gray-400 text-sm">{{ book.created_at.strftime('%m/%d/%Y') if book.created_at else 'N/A' }}</td>
+                            <td class="px-4 py-4">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <button type="button"
+                                            class="btn-action btn-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editBookModal"
+                                            data-code="{{ book.asset_code }}"
+                                            data-name="{{ book.asset_name }}"
+                                            data-real="{{ book.real }}"
+                                            data-ienes="{{ book.ienes }}"
+                                            data-black="{{ book.black }}"
+                                            data-private="{{ book.private }}"
+                                            aria-label="Edit {{ book.asset_name }}"
+                                            title="Edit">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button"
+                                            class="btn-action btn-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteBookModal"
+                                            data-code="{{ book.asset_code }}"
+                                            data-name="{{ book.asset_name }}"
+                                            aria-label="Delete {{ book.asset_name }}"
+                                            title="Delete">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
@@ -109,12 +109,11 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <i class="fas fa-book"></i>
-                <h3>No Assets Found</h3>
-                <p>Start by adding your first book or asset</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
-                    <i class="fas fa-plus me-1"></i>
-                    Add First Asset
+                <i class="fas fa-book text-6xl mb-4 text-gray-600"></i>
+                <h3 class="text-xl font-semibold text-gray-300 mb-2">No Assets Found</h3>
+                <p class="text-gray-400 mb-4">Start by adding your first book or asset</p>
+                <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                    <i class="fas fa-plus mr-2"></i>Add First Asset
                 </button>
             </div>
         {% endif %}
@@ -126,36 +125,38 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addBookModalLabel">Add New Asset</h5>
+                <h5 class="modal-title" id="addBookModalLabel">
+                    <i class="fas fa-book mr-2"></i>Add New Asset
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close dialog"></button>
             </div>
             <form method="POST">
                 <input type="hidden" name="action" value="add">
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="asset_name" class="form-label">Asset Name *</label>
-                        <input type="text" class="form-control" name="asset_name" required>
+                        <input type="text" class="form-input" name="asset_name" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="real" class="form-label">Real Price (BRL)</label>
-                        <input type="number" step="0.01" class="form-control" name="real" value="0">
+                        <input type="number" step="0.01" class="form-input" name="real" value="0">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="ienes" class="form-label">Yen Price (JPY)</label>
-                        <input type="number" class="form-control" name="ienes" value="0">
+                        <input type="number" class="form-input" name="ienes" value="0">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="black" class="form-label">Black Market Price</label>
-                        <input type="number" class="form-control" name="black" value="0">
+                        <input type="number" class="form-input" name="black" value="0">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="private" class="form-label">Private Price</label>
-                        <input type="number" class="form-control" name="private" value="0">
+                        <input type="number" class="form-input" name="private" value="0">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Asset</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Asset</button>
                 </div>
             </form>
         </div>
@@ -167,37 +168,39 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Asset</h5>
+                <h5 class="modal-title">
+                    <i class="fas fa-edit mr-2"></i>Edit Asset
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="asset_code" id="edit_asset_code">
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="edit_asset_name" class="form-label">Asset Name *</label>
-                        <input type="text" class="form-control" name="asset_name" id="edit_asset_name" required>
+                        <input type="text" class="form-input" name="asset_name" id="edit_asset_name" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="edit_real" class="form-label">Real Price (BRL)</label>
-                        <input type="number" step="0.01" class="form-control" name="real" id="edit_real">
+                        <input type="number" step="0.01" class="form-input" name="real" id="edit_real">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="edit_ienes" class="form-label">Yen Price (JPY)</label>
-                        <input type="number" class="form-control" name="ienes" id="edit_ienes">
+                        <input type="number" class="form-input" name="ienes" id="edit_ienes">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="edit_black" class="form-label">Black Market Price</label>
-                        <input type="number" class="form-control" name="black" id="edit_black">
+                        <input type="number" class="form-input" name="black" id="edit_black">
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="edit_private" class="form-label">Private Price</label>
-                        <input type="number" class="form-control" name="private" id="edit_private">
+                        <input type="number" class="form-input" name="private" id="edit_private">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Update Asset</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Asset</button>
                 </div>
             </form>
         </div>
@@ -208,20 +211,24 @@
 <div class="modal fade" id="deleteBookModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Delete Asset</h5>
+            <div class="modal-header-danger">
+                <h5 class="modal-title">
+                    <i class="fas fa-trash mr-2"></i>Delete Asset
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="asset_code" id="delete_asset_code">
                 <div class="modal-body">
-                    <p>Are you sure you want to delete asset <strong id="delete_asset_name"></strong>?</p>
-                    <p class="text-muted">This action cannot be undone.</p>
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong> This action cannot be undone.
+                    </div>
+                    <p class="text-gray-300">Are you sure you want to delete asset <strong id="delete_asset_name"></strong>?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Delete Asset</button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-danger">Delete Asset</button>
                 </div>
             </form>
         </div>
@@ -261,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_private').value = button.getAttribute('data-private');
         });
     }
-    
+
     // Delete book modal
     const deleteModal = document.getElementById('deleteBookModal');
     if (deleteModal) {

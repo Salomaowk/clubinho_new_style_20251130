@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Calculator Navigation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/floating-tools.css">
+    <style>
+        body {
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .calculator-container {
+            background: #e8f4f8;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 30px;
+            min-height: 300px;
+        }
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-indicator">
+        <strong>Test Status:</strong> <span id="testStatus">Ready</span>
+    </div>
+
+    <div class="container">
+        <h1 class="mb-4">Calculator Navigation Test</h1>
+
+        <div class="test-section">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Click the floating Calculator button on the right side of the screen</li>
+                <li>The page should scroll smoothly to the Calculator section below</li>
+                <li>The Calculator section should have a brief highlight effect</li>
+                <li>The URL should show <code>#calculator</code> at the end</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>Orders Section</h3>
+            <p>This is a simulated orders section. Scroll down to see the Calculator section.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>More Content</h3>
+            <p>Additional content to make scrolling necessary...</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+
+        <div class="calculator-container">
+            <h3><i class="fas fa-calculator me-2"></i>Book Import Calculator</h3>
+            <p>This is the Calculator section that should be scrolled to when clicking the Calculator button.</p>
+            <div class="alert alert-success mt-3">
+                <strong>Success!</strong> If you can see this section smoothly scrolled into view with a highlight effect, the navigation fix is working correctly!
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Tools Menu -->
+    <div class="floating-tools-menu" role="navigation" aria-label="Quick tools menu">
+        <div class="floating-tool-item">
+            <button type="button"
+                    class="floating-tool-btn"
+                    data-tool="calculator"
+                    aria-label="Open Calculator"
+                    title="Calculator"
+                    onclick="testCalculatorNavigation()">
+                <i class="fas fa-calculator"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Test function that mimics the openCalculator() function
+        function testCalculatorNavigation() {
+            console.log('🧮 Calculator button clicked');
+            document.getElementById('testStatus').textContent = 'Testing...';
+            document.getElementById('testStatus').style.color = 'orange';
+
+            // Check if we're on a page with calculator section
+            const calculatorSection = document.querySelector('.calculator-container');
+            if (calculatorSection) {
+                console.log('✅ Calculator section found, scrolling...');
+
+                // Scroll to calculator
+                calculatorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Flash highlight effect
+                calculatorSection.style.transition = 'box-shadow 0.3s ease';
+                calculatorSection.style.boxShadow = '0 0 0 4px #4CAF50';
+                setTimeout(() => {
+                    calculatorSection.style.boxShadow = '';
+                    document.getElementById('testStatus').textContent = 'Success!';
+                    document.getElementById('testStatus').style.color = 'green';
+                }, 1000);
+
+                // Update URL with hash
+                window.location.hash = 'calculator';
+            } else {
+                console.log('❌ Calculator section not found');
+                document.getElementById('testStatus').textContent = 'Failed - Section not found';
+                document.getElementById('testStatus').style.color = 'red';
+            }
+        }
+
+        // Test hash detection on page load (simulates orders.js behavior)
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('📋 Page loaded, checking for #calculator hash');
+
+            if (window.location.hash === '#calculator') {
+                console.log('✅ Hash detected, scrolling to calculator...');
+
+                setTimeout(() => {
+                    const calculatorSection = document.querySelector('.calculator-container');
+                    if (calculatorSection) {
+                        calculatorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                        // Flash highlight effect
+                        calculatorSection.style.transition = 'box-shadow 0.3s ease';
+                        calculatorSection.style.boxShadow = '0 0 0 4px #4CAF50';
+                        setTimeout(() => {
+                            calculatorSection.style.boxShadow = '';
+                        }, 1000);
+
+                        document.getElementById('testStatus').textContent = 'Hash navigation successful!';
+                        document.getElementById('testStatus').style.color = 'green';
+                    }
+                }, 500);
+            }
+        });
+    </script>
+
+    <!-- Minimal floating tools CSS -->
+    <style>
+        .floating-tools-menu {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .floating-tool-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-tool-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+    </style>
+</body>
+</html>

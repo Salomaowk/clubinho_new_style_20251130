@@ -114,6 +114,7 @@ def admin_login():
     if request.method == 'POST':
         login = request.form['login']
         password = request.form['password']
+        conn = None
 
         try:
             conn = get_db_connection()
@@ -2540,6 +2541,62 @@ def batch_edit_orders():
 
     except Exception as e:
         flash(f'Error updating orders: {e}')
+        if conn:
+            conn.rollback()
+    finally:
+        if conn:
+            conn.close()
+
+    if return_to == 'dashboard':
+        return redirect(url_for('dashboard'))
+    else:
+        return redirect(url_for('orders'))
+
+
+@app.route('/orders/batch-delete', methods=['POST'])
+def batch_delete_orders():
+    """Batch delete multiple orders"""
+    if not session.get('is_admin'):
+        flash('Please login as admin to access this page')
+        return redirect(url_for('admin_login'))
+
+    print(f"DEBUG: Form data: {request.form}")
+    print(f"DEBUG: Args: {request.args}")
+
+    conn = None  # Initialize conn to avoid UnboundLocalError
+    try:
+        order_ids = request.form.get('order_ids', '').split(',')
+        return_to = request.args.get('return', 'orders')
+
+        if not order_ids or order_ids == ['']:
+            flash('No orders selected for batch delete')
+            return redirect(url_for('orders'))
+
+        # Filter out empty order IDs
+        order_ids = [id.strip() for id in order_ids if id.strip()]
+
+        if not order_ids:
+            flash('No valid order IDs provided')
+            return redirect(url_for('orders'))
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Execute batch delete
+        placeholders = ','.join(['%s'] * len(order_ids))
+        query = f"""
+            DELETE FROM orders
+            WHERE order_id IN ({placeholders})
+        """
+
+        cursor.execute(query, order_ids)
+        conn.commit()
+
+        deleted_count = cursor.rowcount
+        flash(f'Successfully deleted {deleted_count} orders!')
+
+    except Exception as e:
+        flash(f'Error deleting orders: {e}')
         if conn:
             conn.rollback()
     finally:
